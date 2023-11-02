@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-const Button = styled.button<{ deleteButton?: boolean }>`
+const Button = styled.button<{
+  deleteButton?: boolean;
+  iconButton?: boolean;
+}>`
   color: ${(props) => (props.deleteButton ? "white" : "var(--primaryDark)")};
   background-color: ${(props) =>
     props.deleteButton ? "var(--themeRed)" : "var(--primaryLight)"};
