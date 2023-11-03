@@ -15,7 +15,7 @@ export const ButtonStyled = styled.button<{
       : "var(--primaryLight)"};
   width: 150px;
   height: 40px;
-  padding: 5px;
+  padding: 5px 8px;
   border-radius: 3px;
   border: none;
   margin-top: 20px;
