@@ -1,6 +1,7 @@
 import GlobalStyle from "./core/styles/global-styles.ts";
 import Button from "./components/buttons/button.tsx";
 import "./app.css";
+import Table from "./components/table/table.tsx";
 
 // import { ReactComponent as AddIcon } from "./assets/add.svg?react";
 
@@ -23,6 +24,8 @@ function App() {
         buttontext="I'm an icon test button"
         buttonicon="src/assets/add.svg"
       />
+
+      <Table></Table>
     </>
   );
 }
