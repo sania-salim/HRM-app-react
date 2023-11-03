@@ -5,23 +5,26 @@ import {
   TableDataStyled,
 } from "./table.style";
 
+const tempObj = [
+  { id: 1001, name: "Tom" },
+  { id: 1002, name: "Jerry" },
+];
+
 function Table() {
   return (
     <>
       <TableStyled>
         <TableRowStyled>
-          <TableHeaderStyled>Heading 1</TableHeaderStyled>
-          <TableHeaderStyled>Heading 2</TableHeaderStyled>
-          <TableHeaderStyled>Heading 3</TableHeaderStyled>
-          <TableHeaderStyled>Heading 4</TableHeaderStyled>
+          <TableHeaderStyled>ID</TableHeaderStyled>
+          <TableHeaderStyled>Name</TableHeaderStyled>
         </TableRowStyled>
 
-        <TableRowStyled>
-          <TableDataStyled>Data 1</TableDataStyled>
-          <TableDataStyled>Data 2</TableDataStyled>
-          <TableDataStyled>Data 3</TableDataStyled>
-          <TableDataStyled>Data 4</TableDataStyled>
-        </TableRowStyled>
+        {tempObj.map((item) => (
+          <TableRowStyled>
+            <TableDataStyled>{item.id}</TableDataStyled>
+            <TableDataStyled>{item.name}</TableDataStyled>
+          </TableRowStyled>
+        ))}
       </TableStyled>
     </>
   );
