@@ -1,22 +1,28 @@
-// import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import viteLogo from "/vite.svg";
 import GlobalStyle from "./core/styles/global-styles.ts";
-import Button from "./components/buttons/buttons.style.ts";
+import Button from "./components/buttons/button.tsx";
 import "./app.css";
 
-import { ReactComponent as AddIcon } from "./assets/add.svg";
+// import { ReactComponent as AddIcon } from "./assets/add.svg?react";
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <Button>I'm a regular test button</Button>
-      <Button iconButton>
-        <AddIcon />
-        I'm a test button with icon
-      </Button>
-      <Button deleteButton>I'm a delete test button</Button>
+      <Button
+        buttontype="regularButton"
+        buttontext="I'm a regular test button"
+        buttonicon=""
+      />
+      <Button
+        buttontype="deleteButton"
+        buttontext="I'm a delete test button"
+        buttonicon=""
+      />
+      <Button
+        buttontype="iconButton"
+        buttontext="I'm an icon test button"
+        buttonicon="src/assets/add.svg"
+      />
     </>
   );
 }

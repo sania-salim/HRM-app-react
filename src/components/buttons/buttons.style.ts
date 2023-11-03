@@ -1,14 +1,21 @@
 import styled from "styled-components";
+const deleteButton = "deleteButton";
+const iconButton = "iconButton";
 
-const Button = styled.button<{
-  deleteButton?: boolean;
-  iconButton?: boolean;
+export const ButtonStyled = styled.button<{
+  buttontype?: string;
 }>`
-  color: ${(props) => (props.deleteButton ? "white" : "var(--primaryDark)")};
+  display: ${(props) => (props.buttontype === iconButton ? "flex" : "block")};
+  justify-content: space-between;
+  color: ${(props) =>
+    props.buttontype === deleteButton ? "white" : "var(--primaryDark)"};
   background-color: ${(props) =>
-    props.deleteButton ? "var(--themeRed)" : "var(--primaryLight)"};
+    props.buttontype === deleteButton
+      ? "var(--themeRed)"
+      : "var(--primaryLight)"};
   width: 150px;
   height: 40px;
+  padding: 5px;
   border-radius: 3px;
   border: none;
   margin-top: 20px;
@@ -17,8 +24,6 @@ const Button = styled.button<{
   &:focus {
     color: white;
     background-color: ${(props) =>
-      props.deleteButton ? "#8B0000" : "var(--primaryDark)"};
+      props.buttontype === deleteButton ? "#8B0000" : "var(--primaryDark)"};
   }
 `;
-
-export default Button;
