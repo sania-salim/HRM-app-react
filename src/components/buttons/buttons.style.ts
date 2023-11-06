@@ -6,7 +6,7 @@ export const ButtonStyled = styled.button<{
   buttontype?: string;
 }>`
   display: ${(props) => (props.buttontype === iconButton ? "flex" : "block")};
-  justify-content: space-between;
+  justify-content: space-around;
   color: ${(props) =>
     props.buttontype === deleteButton ? "white" : "var(--primaryDark)"};
   background-color: ${(props) =>
@@ -15,7 +15,8 @@ export const ButtonStyled = styled.button<{
       : "var(--primaryLight)"};
   width: 150px;
   height: 40px;
-  padding: 5px 8px;
+  align-items: center;
+  padding: 8px;
   border-radius: 3px;
   border: none;
   margin-top: 20px;

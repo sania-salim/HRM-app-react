@@ -1,6 +1,5 @@
 import GlobalStyle from "./core/styles/global-styles.ts";
 import Home from "./home/home.tsx";
-import AddUser from "./add user/add-user.tsx";
 
 // import { ReactComponent as AddIcon } from "./assets/add.svg?react";
 
@@ -9,7 +8,6 @@ function App() {
     <>
       <GlobalStyle />
       <Home></Home>
-      <AddUser></AddUser>
     </>
   );
 }
