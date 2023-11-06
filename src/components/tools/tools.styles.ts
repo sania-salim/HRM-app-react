@@ -18,11 +18,16 @@ export const SearchContainer = styled.div`
   height: 25px;
   gap: 10px;
   align-self: center;
-  padding: 8px;
+  align-items: center;
+  padding: 4px 10px;
   background-color: var(--themeGrey);
   border-radius: 2px;
 `;
 
 export const SearchInput = styled.input`
+  border: 0;
+  border-radius: 3px;
+  padding-left: 5px;
+  outline: none;
   width: 250px;
 `;

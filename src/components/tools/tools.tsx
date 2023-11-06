@@ -17,7 +17,7 @@ function Tools() {
 
       <ToolsContainer>
         <SearchContainer>
-          <SearchInput type="text" />
+          <SearchInput type="text" placeholder="Search by name..." />
           <img src="src/assets/search violet.svg" alt="" />
         </SearchContainer>
         <img src="src/assets/sort violet.svg" alt="" />
