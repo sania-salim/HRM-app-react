@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const OuterFormContainer = styled.div`
   display: flex;
-  gap: 20px;
-  justify-content: space-around;
+  gap: 114px;
+  justify-content: center;
 `;
 
 export const InnerFormContainer = styled.div`
@@ -67,4 +67,10 @@ export const DropDownLi = styled.li`
 export const CustomSelectContainer = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+// Headings to forms and details
+export const PageHeading = styled.h2`
+  text-align: left;
+  padding-left: 90px;
 `;
