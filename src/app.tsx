@@ -1,5 +1,5 @@
 import GlobalStyle from "./core/styles/global-styles.ts";
-import EditUser from "./edit user/edit-user.tsx";
+import Details from "./details/details.tsx";
 
 // import { ReactComponent as AddIcon } from "./assets/add.svg?react";
 
@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <EditUser></EditUser>
+      <Details></Details>
     </>
   );
 }
