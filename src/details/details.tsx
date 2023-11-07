@@ -19,25 +19,27 @@ function Details() {
         <DetailsDivider>
           <h3>Thomas</h3>
           <p>Serial chaser</p>
-          <p>tom@catchmouse.com</p>
-          <p>7895789468</p>
-          <h3>Date of joining:</h3>
-          <h3>Date of birth:</h3>
-          <p>Ganga building, tvm</p>
-          <ButtonContainer>
-            <Button
-              buttontype="regularButton"
-              buttontext="Back"
-              buttonicon=""
-            />
-            <Button
-              buttontype="regularButton"
-              buttontext="Edit"
-              buttonicon=""
-            />
-          </ButtonContainer>
+          <div>
+            <img src="src/assets/mail.svg" alt="" />
+            <p>tom@catchmouse.com</p>
+          </div>
+          <div>
+            <img src="src/assets/phone number.svg" alt="" />
+            <p>7895789468</p>
+          </div>
+
+          <p>Date of joining:14th July 2023</p>
+          <p>Date of birth:11th May 2001</p>
+          <div>
+            <img src="src/assets/location.svg" alt="" />
+            <p>Ganga building,Trivandrum</p>
+          </div>
         </DetailsDivider>
       </DetailsMain>
+      <ButtonContainer>
+        <Button buttontype="regularButton" buttontext="Back" buttonicon="" />
+        <Button buttontype="regularButton" buttontext="Edit" buttonicon="" />
+      </ButtonContainer>
     </>
   );
 }
