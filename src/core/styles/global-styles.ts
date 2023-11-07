@@ -15,8 +15,8 @@ const GlobalStyle = createGlobalStyle`
   }
   
   .ProfilePhoto {
-    height: 360px;
-    width: 280px;
+    height: 280px;
+    width: 200px;
   }
   
 `;
