@@ -14,6 +14,11 @@ const GlobalStyle = createGlobalStyle`
     --themeGreen: #5faf5e;
   }
   
+  .ProfilePhoto {
+    height: 280px;
+    width: 200px;
+  }
+  
 `;
 
 export default GlobalStyle;
