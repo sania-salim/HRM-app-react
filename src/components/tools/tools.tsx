@@ -5,15 +5,18 @@ import {
   SearchContainer,
   SearchInput,
 } from "./tools.styles.ts";
+import { Link } from "react-router-dom";
 
 function Tools() {
   return (
     <OuterToolsContainer>
-      <Button
-        buttontype="iconButton"
-        buttontext="Add employee"
-        buttonicon="src/assets/add.svg"
-      />
+      <Link to="/add">
+        <Button
+          buttontype="iconButton"
+          buttontext="Add employee"
+          buttonicon="src/assets/add.svg"
+        />
+      </Link>
 
       <ToolsContainer>
         <SearchContainer>

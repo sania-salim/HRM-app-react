@@ -74,3 +74,11 @@ export const PageHeading = styled.h2`
   text-align: left;
   padding-left: 90px;
 `;
+
+/////// validation error
+
+export const ValidationError = styled.div`
+  color: var(--themeRed);
+  font-size: 12px;
+  margin: 10px 0;
+`;

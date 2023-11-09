@@ -13,6 +13,10 @@ const GlobalStyle = createGlobalStyle`
     --themeRed: #ff0000;
     --themeGreen: #5faf5e;
   }
+
+  body{
+    margin:0;
+  }
   
   .ProfilePhoto {
     height: 280px;
