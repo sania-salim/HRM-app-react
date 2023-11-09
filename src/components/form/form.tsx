@@ -9,6 +9,7 @@ import {
   ValidationError,
 } from "./form.style.ts";
 import CustomSelect from "./custom-select.tsx";
+import { employeeList } from "../../core/config/constants.ts";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -19,6 +20,7 @@ const validationSchema = Yup.object({
   mailID: Yup.string().email().required(),
   phoneNumber: Yup.string().required(),
 });
+
 function Form() {
   const formik = useFormik({
     initialValues: {
@@ -28,14 +30,21 @@ function Form() {
       mailID: "julie@mail.com",
       phoneNumber: "",
     },
-    onSubmit: () => {
-      console.log("values:", formik.values);
+
+    onSubmit: (values) => {
+      // object to push upon submission
+      const newEntry = {
+        id: 1006,
+        name: values.fullName,
+        designation: " Intern at watchdog timing",
+        mailID: values.mailID,
+      };
+      employeeList.push(newEntry);
+      console.log(employeeList);
     },
+
     validationSchema,
   });
-
-  console.log("values:", formik.values);
-  console.log("errors:", formik.errors);
 
   return (
     <form onSubmit={formik.handleSubmit}>
