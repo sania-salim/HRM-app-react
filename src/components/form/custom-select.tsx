@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   LabelForm,
   DropDownUl,
@@ -14,18 +15,37 @@ const SelectOptions = [
   { label: "Angular" },
 ];
 
-const SelectedSkills = [];
+// array that stores the selected skills
+export const selectedSkills: string[] = [];
 
 function CustomSelect() {
+  const [selectIsOpen, setSelectIsOpen] = useState(false);
+
+  function toggleDropdown() {
+    setSelectIsOpen(!selectIsOpen);
+  }
+
+  function addSkill(skill: string) {
+    selectedSkills.push(skill);
+    console.log("skills", selectedSkills);
+  }
+
   return (
     <CustomSelectContainer>
       <LabelForm>Check off all applicable:</LabelForm>
-      <InputHalfStyled></InputHalfStyled>
-      <DropDownUl>
-        {SelectOptions.map((option) => (
-          <DropDownLi key={option.label}>{option.label}</DropDownLi>
-        ))}
-      </DropDownUl>
+      <InputHalfStyled onClick={toggleDropdown}></InputHalfStyled>
+      {selectIsOpen && (
+        <DropDownUl>
+          {SelectOptions.map((option) => (
+            <DropDownLi
+              key={option.label}
+              onClick={() => addSkill(option.label)}
+            >
+              {option.label}
+            </DropDownLi>
+          ))}
+        </DropDownUl>
+      )}
     </CustomSelectContainer>
   );
 }

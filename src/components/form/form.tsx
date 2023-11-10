@@ -16,6 +16,8 @@ import { employeeList } from "../../core/config/constants.ts";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
+import { selectedSkills } from "./custom-select.tsx";
+
 const addForm = "add-form";
 const editForm = "edit-form";
 
@@ -39,6 +41,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
       dateOfBirth: "",
       mailID: "julie@mail.com",
       phoneNumber: "",
+      skills: [],
     },
 
     onSubmit: (values) => {
@@ -48,6 +51,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
         name: values.fullName,
         designation: " Intern at watchdog timing",
         mailID: values.mailID,
+        skills: selectedSkills,
       };
 
       if (formtype === addForm) {
