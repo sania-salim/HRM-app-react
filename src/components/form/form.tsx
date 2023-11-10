@@ -7,21 +7,31 @@ import {
   InnerFormContainer,
   OuterFormContainer,
   ValidationError,
+  ButtonContainer,
 } from "./form.style.ts";
+import Button from "../buttons/button.tsx";
+
 import CustomSelect from "./custom-select.tsx";
 import { employeeList } from "../../core/config/constants.ts";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
+const addForm = "add-form";
+const editForm = "edit-form";
+
 const validationSchema = Yup.object({
-  fullName: Yup.string().required(),
-  dateOfJoining: Yup.string().required(),
-  dateOfBirth: Yup.string().required(),
-  mailID: Yup.string().email().required(),
-  phoneNumber: Yup.string().required(),
+  fullName: Yup.string().max(50, "Too Long!").required("Required field"),
+  dateOfJoining: Yup.string().required("Required field"),
+  dateOfBirth: Yup.string().required("Required field"),
+  mailID: Yup.string().email().required("Required field"),
+  phoneNumber: Yup.number().required("Required field"),
 });
 
-function Form() {
+interface FormProps {
+  formtype: "add-form" | "edit-form";
+}
+
+const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const formik = useFormik({
     initialValues: {
       fullName: "Julie",
@@ -39,7 +49,14 @@ function Form() {
         designation: " Intern at watchdog timing",
         mailID: values.mailID,
       };
-      employeeList.push(newEntry);
+
+      if (formtype === addForm) {
+        employeeList.push(newEntry);
+      } else if (formtype === editForm) {
+        // deleteEmployee(newEntry.id);
+        employeeList.push(newEntry);
+      }
+
       console.log(employeeList);
     },
 
@@ -152,9 +169,17 @@ function Form() {
           </FormDivider>
         </InnerFormContainer>
       </OuterFormContainer>
-      <button type="submit">Submit</button>
+      <ButtonContainer>
+        <Button buttontype="regularButton" buttontext="Cancel" />
+        {formtype && editForm ? (
+          <Button buttontype="deleteButton" buttontext="Delete" buttonicon="" />
+        ) : (
+          ""
+        )}
+        <Button buttontype="regularButton" buttontext="Done" type="submit" />
+      </ButtonContainer>
     </form>
   );
-}
+};
 
 export default Form;

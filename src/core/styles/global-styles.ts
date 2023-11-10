@@ -12,10 +12,12 @@ const GlobalStyle = createGlobalStyle`
     --themeGrey: #d9d9d9;
     --themeRed: #ff0000;
     --themeGreen: #5faf5e;
+
   }
 
   body{
     margin:0;
+    font-family:"inter" ;
   }
   
   .ProfilePhoto {

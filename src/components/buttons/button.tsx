@@ -4,7 +4,8 @@ import { ButtonStyled } from "./buttons.style";
 interface ButtonProps {
   buttontype: "deleteButton" | "iconButton" | "regularButton";
   buttontext: string;
-  buttonicon: string;
+  buttonicon?: string;
+  type?: string;
   onSmash?: React.EventHandler<React.MouseEvent>;
 }
 
@@ -12,11 +13,12 @@ const Button: React.FC<ButtonProps> = ({
   buttontype,
   buttontext,
   buttonicon,
+  type,
   onSmash,
 }: ButtonProps) => {
   return (
-    <ButtonStyled buttontype={buttontype}>
-      <img src={buttonicon} alt="" />
+    <ButtonStyled buttontype={buttontype} type={type}>
+      {buttonicon ? <img src={buttonicon} alt="" /> : ""}
       {buttontext}
     </ButtonStyled>
   );

@@ -2,24 +2,28 @@ import {
   LabelForm,
   DropDownUl,
   DropDownLi,
+  InputHalfStyled,
   CustomSelectContainer,
 } from "./form.style.ts";
 
 const SelectOptions = [
-  { label: "First", value: 1 },
-  { label: "Second", value: 2 },
-  { label: "Third", value: 3 },
-  { label: "Fourth", value: 4 },
-  { label: "Fifth", value: 5 },
+  { label: "HTML" },
+  { label: "CSS" },
+  { label: "React" },
+  { label: "Node" },
+  { label: "Angular" },
 ];
+
+const SelectedSkills = [];
 
 function CustomSelect() {
   return (
     <CustomSelectContainer>
       <LabelForm>Check off all applicable:</LabelForm>
+      <InputHalfStyled></InputHalfStyled>
       <DropDownUl>
         {SelectOptions.map((option) => (
-          <DropDownLi key={option.value}>{option.label}</DropDownLi>
+          <DropDownLi key={option.label}>{option.label}</DropDownLi>
         ))}
       </DropDownUl>
     </CustomSelectContainer>

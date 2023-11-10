@@ -51,11 +51,15 @@ export const DropDownUl = styled.ul`
   list-style-type: none;
   background-color: var(--themeGrey);
   padding: 0;
-  border-radius: 3px;
+  border-radius: 0;
+  margin-top: 0;
 `;
 
 export const DropDownLi = styled.li`
-  width: 240px;
+  display: flex;
+  align-items: center;
+  font-size: 14.5px;
+  width: 235px;
   height: 30px;
   padding-left: 12px;
   &:hover,

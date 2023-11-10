@@ -4,6 +4,7 @@ const iconButton = "iconButton";
 
 export const ButtonStyled = styled.button<{
   buttontype?: string;
+  type?: string;
 }>`
   display: ${(props) => (props.buttontype === iconButton ? "flex" : "block")};
   justify-content: space-around;
