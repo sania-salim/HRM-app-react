@@ -4,6 +4,7 @@ import {
   DropDownLi,
   CustomSelectContainer,
 } from "./form.style.ts";
+import { customSelect } from "../../core/config/content.ts";
 
 const SelectOptions = [
   { label: "First", value: 1 },
@@ -16,7 +17,7 @@ const SelectOptions = [
 function CustomSelect() {
   return (
     <CustomSelectContainer>
-      <LabelForm>Check off all applicable:</LabelForm>
+      <LabelForm>{customSelect.fieldLabel}</LabelForm>
       <DropDownUl>
         {SelectOptions.map((option) => (
           <DropDownLi key={option.value}>{option.label}</DropDownLi>
