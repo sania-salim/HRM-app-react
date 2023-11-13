@@ -23,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
   .ProfilePhoto {
     height: 280px;
     width: 200px;
+    margin-top: 19px;
   }
   
 `;

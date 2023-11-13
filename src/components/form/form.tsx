@@ -11,7 +11,14 @@ import {
 } from "./form.style.ts";
 import Button from "../buttons/button.tsx";
 
-import CustomSelect from "./custom-select.tsx";
+import {
+  CustomSelect,
+  CustomSimpleSelect,
+  designationSelected,
+  locationOptionSelected,
+  workOptionSelected,
+} from "./custom-select.tsx";
+
 import { employeeList } from "../../core/config/constants.ts";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -42,6 +49,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
       mailID: "julie@mail.com",
       phoneNumber: "",
       skills: [],
+      workStatus: "",
     },
 
     onSubmit: (values) => {
@@ -49,9 +57,11 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
       const newEntry = {
         id: 1006,
         name: values.fullName,
-        designation: " Intern at watchdog timing",
+        designation: designationSelected,
         mailID: values.mailID,
         skills: selectedSkills,
+        workStatus: workOptionSelected,
+        location: locationOptionSelected,
       };
 
       if (formtype === addForm) {
@@ -159,16 +169,16 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
             </FormFieldDivider>
 
             <FormFieldDivider>
-              <CustomSelect></CustomSelect>
+              <CustomSimpleSelect selectList="designation"></CustomSimpleSelect>
             </FormFieldDivider>
           </FormDivider>
           <FormDivider>
             <FormFieldDivider>
-              <CustomSelect></CustomSelect>
+              <CustomSimpleSelect selectList="workOptions"></CustomSimpleSelect>
             </FormFieldDivider>
 
             <FormFieldDivider>
-              <CustomSelect></CustomSelect>
+              <CustomSimpleSelect selectList="workLocation"></CustomSimpleSelect>
             </FormFieldDivider>
           </FormDivider>
         </InnerFormContainer>
