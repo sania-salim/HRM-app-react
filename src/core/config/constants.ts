@@ -4,7 +4,13 @@ export const employeeList = [
     name: "Tom",
     designation: " Serial chaser",
     mailID: "tom@catchmouse.com",
+    dateOfJoining: "",
+    dateOfBirth: "",
+    phoneNumber: "3907450394",
+    skills: ["HTML", "CSS"],
+    workStatus: "work from home",
   },
+
   {
     id: 1002,
     name: "Jerry",

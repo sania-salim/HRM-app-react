@@ -7,7 +7,7 @@ function EditUser() {
     <>
       <Header />
       <PageHeading>Edit employee</PageHeading>
-      <Form formtype="add-form"></Form>
+      <Form formtype="edit-form"></Form>
     </>
   );
 }
