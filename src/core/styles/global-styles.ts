@@ -29,6 +29,28 @@ const GlobalStyle = createGlobalStyle`
   .isSelected{
     background-color: var(--selection);
   }
+  
+
+  //////////////////////////////////////////////////////////////
+  .container{
+    position:relative;
+    width:20em;
+    min-height:1.5em;
+    border:0.05em #777;
+    display:flex;
+    gap:0.5em;
+    padding:0.5em;
+    border-radius:0.5em;
+    outline:none;
+  }
+
+  .container:focus {
+    border-color: hsl(200,100%,50%);
+  }
+
+  .value{
+    flex-grow:1;
+  }
 `;
 
 export default GlobalStyle;
