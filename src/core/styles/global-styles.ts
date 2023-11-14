@@ -26,6 +26,9 @@ const GlobalStyle = createGlobalStyle`
     margin-top: 19px;
   }
   
+  .isSelected{
+    background-color: var(--selection);
+  }
 `;
 
 export default GlobalStyle;

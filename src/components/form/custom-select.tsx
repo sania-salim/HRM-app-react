@@ -40,6 +40,9 @@ export function CustomSelect() {
         <DropDownUl>
           {SelectOptions.map((option) => (
             <DropDownLi
+              className={
+                selectedSkills.includes(option.label) ? "isSelected" : ""
+              }
               tabIndex={option.value}
               key={option.label}
               onClick={() => addSkill(option.label)}
@@ -71,6 +74,10 @@ export const CustomSimpleSelect: React.FC<SelectProps> = ({
   function toggleDropdown() {
     setSelectIsOpen(!selectIsOpen);
   }
+
+  // function selectItem() {
+  //   setItemSelection(true);
+  // }
 
   function selectOption(option: string, selectList: string) {
     console.log(listName);
