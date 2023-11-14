@@ -8,6 +8,7 @@ import {
   OuterFormContainer,
 } from "./form.style.ts";
 import CustomSelect from "./custom-select.tsx";
+import { formContent } from "../../core/config/content.ts";
 
 function Form() {
   return (
@@ -18,38 +19,38 @@ function Form() {
         className="ProfilePhoto"
       />
       <InnerFormContainer>
-        <h3>Employee ID: 1001</h3>
+        <h3>{formContent.formHeading}</h3>
         <FormFieldDivider>
-          <LabelForm>Full Name</LabelForm>
+          <LabelForm>{formContent.fullNameLabel}</LabelForm>
           <InputFullStyled type="text"></InputFullStyled>
         </FormFieldDivider>
 
         <FormDivider>
           <FormFieldDivider>
-            <LabelForm>Date of joining</LabelForm>
+            <LabelForm>{formContent.dateOfJoiningLabel}</LabelForm>
             <InputHalfStyled type="date"></InputHalfStyled>
           </FormFieldDivider>
 
           <FormFieldDivider>
-            <LabelForm>Date of birth</LabelForm>
+            <LabelForm>{formContent.dateOfBirthLabel}</LabelForm>
             <InputHalfStyled type="date"></InputHalfStyled>
           </FormFieldDivider>
         </FormDivider>
 
-        <h3>Contact details</h3>
+        <h3>{formContent.contactHeading}</h3>
         <FormDivider>
           <FormFieldDivider>
-            <LabelForm>Phone number</LabelForm>
+            <LabelForm>{formContent.phoneNumberLabel}</LabelForm>
             <InputHalfStyled type="text"></InputHalfStyled>
           </FormFieldDivider>
 
           <FormFieldDivider>
-            <LabelForm>Mail ID</LabelForm>
+            <LabelForm>{formContent.mailIdLabel}</LabelForm>
             <InputHalfStyled type="email"></InputHalfStyled>
           </FormFieldDivider>
         </FormDivider>
 
-        <h3>Employment details</h3>
+        <h3>{formContent.employmentDetailsHeading}</h3>
         <FormDivider>
           <FormFieldDivider>
             <CustomSelect></CustomSelect>

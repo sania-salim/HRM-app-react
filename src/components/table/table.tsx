@@ -5,6 +5,8 @@ import {
   TableDataStyled,
 } from "./table.style";
 
+import { tableContent } from "../../core/config/content";
+
 const tempObj = [
   {
     id: 1001,
@@ -43,12 +45,16 @@ function Table() {
     <>
       <TableStyled>
         <TableRowStyled>
-          <TableHeaderStyled>ID</TableHeaderStyled>
-          <TableHeaderStyled>Name</TableHeaderStyled>
-          <TableHeaderStyled>Designation</TableHeaderStyled>
-          <TableHeaderStyled>Mail ID</TableHeaderStyled>
-          <TableHeaderStyled>Work status</TableHeaderStyled>
-          <TableHeaderStyled>Edit</TableHeaderStyled>
+          <TableHeaderStyled>{tableContent.IDheading}</TableHeaderStyled>
+          <TableHeaderStyled>{tableContent.NameHeading}</TableHeaderStyled>
+          <TableHeaderStyled>
+            {tableContent.DesignationHeading}
+          </TableHeaderStyled>
+          <TableHeaderStyled>{tableContent.MailIDHeading}</TableHeaderStyled>
+          <TableHeaderStyled>
+            {tableContent.WorkStatusHeading}
+          </TableHeaderStyled>
+          <TableHeaderStyled>{tableContent.EditHeading}</TableHeaderStyled>
         </TableRowStyled>
 
         {tempObj.map((item) => (

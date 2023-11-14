@@ -2,12 +2,13 @@ import Header from "../components/header/header.js";
 import Button from "../components/buttons/button.js";
 import { ButtonContainer, PageHeading } from "../components/form/form.style.js";
 import { DetailsDivider, DetailsMain } from "./details.style.js";
+import { detailsContent } from "../core/config/content.js";
 
 function Details() {
   return (
     <>
       <Header />
-      <PageHeading>Employee details</PageHeading>
+      <PageHeading>{detailsContent.pageHeading}</PageHeading>
       <DetailsMain>
         <DetailsDivider>
           <img
@@ -17,22 +18,22 @@ function Details() {
           />
         </DetailsDivider>
         <DetailsDivider>
-          <h3>Thomas</h3>
-          <p>Serial chaser</p>
+          <h3>{detailsContent.employeeName}</h3>
+          <p>{detailsContent.employeeDesignation}</p>
           <div>
             <img src="src/assets/mail.svg" alt="" />
-            <p>tom@catchmouse.com</p>
+            <p>{detailsContent.employeeMail}</p>
           </div>
           <div>
             <img src="src/assets/phone number.svg" alt="" />
-            <p>7895789468</p>
+            <p>{detailsContent.employeePhoneNumber}</p>
           </div>
 
-          <p>Date of joining:14th July 2023</p>
-          <p>Date of birth:11th May 2001</p>
+          <p>{detailsContent.employeeDOJ}</p>
+          <p>{detailsContent.employeeDOB}</p>
           <div>
             <img src="src/assets/location.svg" alt="" />
-            <p>Ganga building,Trivandrum</p>
+            <p>{detailsContent.employeeLocation}</p>
           </div>
         </DetailsDivider>
       </DetailsMain>
