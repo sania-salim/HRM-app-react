@@ -10,17 +10,26 @@ import {
   ButtonContainer,
 } from "./form.style.ts";
 import Button from "../buttons/button.tsx";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import { Select, selectOptions } from "./dropdown.tsx";
+
 import {
-  CustomSelect,
-  CustomSimpleSelect,
+  // CustomSelect,
+  // CustomSimpleSelect,
   designationSelected,
   locationOptionSelected,
   workOptionSelected,
 } from "./custom-select.tsx";
 
-import { employeeList } from "../../core/config/constants.ts";
+import {
+  employeeList,
+  SkillOptions,
+  WorkOptions,
+  LocationOptions,
+  DesignationOptions,
+} from "../../core/config/constants.ts";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -44,6 +53,22 @@ interface FormProps {
 const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const navigate = useNavigate();
   let initialvalues;
+
+  const [valueSingleWork, setValueSingleWork] = useState<
+    selectOptions | undefined
+  >(WorkOptions[0]);
+
+  const [valueSingleDesignation, setValueSingleDesignation] = useState<
+    selectOptions | undefined
+  >(DesignationOptions[0]);
+
+  const [valueSingleLocation, setValueSingleLocationS] = useState<
+    selectOptions | undefined
+  >(LocationOptions[0]);
+
+  const [valueMultipleSkill, setValueMultipleSkill] = useState<selectOptions[]>(
+    [SkillOptions[0]]
+  );
 
   if (formtype === editForm) {
     console.log("we are not doomed");
@@ -190,20 +215,46 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           <h3>Employment details</h3>
           <FormDivider>
             <FormFieldDivider>
-              <CustomSelect></CustomSelect>
+              {/* <CustomSelect></CustomSelect> */}
+              {/* Skills dropdown - multi-select */}
+              <LabelForm>Select skills</LabelForm>
+              <Select
+                multiple
+                options={SkillOptions}
+                value={valueMultipleSkill}
+                onChange={(o) => setValueMultipleSkill(o)}
+              ></Select>
             </FormFieldDivider>
 
             <FormFieldDivider>
-              <CustomSimpleSelect selectList="designation"></CustomSimpleSelect>
+              {/* <CustomSimpleSelect selectList="designation"></CustomSimpleSelect> */}
+              <LabelForm>Select designation</LabelForm>
+              <Select
+                options={DesignationOptions}
+                value={valueSingleDesignation}
+                onChange={(o) => setValueSingleDesignation(o)}
+              ></Select>
             </FormFieldDivider>
           </FormDivider>
           <FormDivider>
             <FormFieldDivider>
-              <CustomSimpleSelect selectList="workOptions"></CustomSimpleSelect>
+              {/* <CustomSimpleSelect selectList="workOptions"></CustomSimpleSelect> */}
+              <LabelForm>Select mode of work</LabelForm>
+              <Select
+                options={WorkOptions}
+                value={valueSingleWork}
+                onChange={(o) => setValueSingleWork(o)}
+              ></Select>
             </FormFieldDivider>
 
             <FormFieldDivider>
-              <CustomSimpleSelect selectList="workLocation"></CustomSimpleSelect>
+              {/* <CustomSimpleSelect selectList="workLocation"></CustomSimpleSelect> */}
+              <LabelForm>Select reporting location</LabelForm>
+              <Select
+                options={LocationOptions}
+                value={valueSingleLocation}
+                onChange={(o) => setValueSingleLocationS(o)}
+              ></Select>
             </FormFieldDivider>
           </FormDivider>
         </InnerFormContainer>

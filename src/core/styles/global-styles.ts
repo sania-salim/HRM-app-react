@@ -34,13 +34,13 @@ const GlobalStyle = createGlobalStyle`
   //////////////////////////////////////////////////////////////
   .container{
     position:relative;
-    width:20em;
-    min-height:1.5em;
+    width:230px;
+    min-height: 1em;
     border:0.05em solid #777;
     display:flex;
     gap:0.5em;
     padding:0.5em;
-    border-radius: 0.25em;
+    border-radius: 0.15em;
     outline:none;
   }
 
@@ -50,6 +50,9 @@ const GlobalStyle = createGlobalStyle`
 
   .value{
     flex-grow:1;
+    display: flex;
+    gap: 0.5em;
+    flex-wrap:wrap;
   }
 
   .clearbutton{

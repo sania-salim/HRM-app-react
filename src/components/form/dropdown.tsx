@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-type selectOptions = {
+export type selectOptions = {
   label: string;
-  value: string;
+  value: string | number;
 };
 
 type singleSelectProps = {
@@ -30,7 +30,7 @@ export function Select({ value, onChange, options, multiple }: selectProps) {
 
   function selectOption(option: selectOptions) {
     if (multiple) {
-      if (value.includes(option)) {
+      if (!value.includes(option)) {
         onChange?.([...value, option]);
       } else {
         onChange?.(value.filter((o) => o !== option));
@@ -54,7 +54,23 @@ export function Select({ value, onChange, options, multiple }: selectProps) {
           setIsOpen((prev) => !prev);
         }}
       >
-        <span className="value">{value?.label}</span>
+        <span className="value">
+          {multiple
+            ? value.map((v) => (
+                <button
+                  className="optionbadge"
+                  key={v.value}
+                  onClick={(e) => {
+                    e.stopPropagation;
+                    selectOption(v);
+                  }}
+                >
+                  {v.label}
+                  <span className="removebtn">&times;</span>
+                </button>
+              ))
+            : value?.label}
+        </span>
         <button
           className="clearbutton"
           onClick={(e) => {
