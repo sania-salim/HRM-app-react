@@ -16,24 +16,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { Select, selectOptions } from "./dropdown.tsx";
 
 import {
-  // CustomSelect,
-  // CustomSimpleSelect,
-  designationSelected,
-  locationOptionSelected,
-  workOptionSelected,
-} from "./custom-select.tsx";
-
-import {
   employeeList,
   SkillOptions,
   WorkOptions,
   LocationOptions,
   DesignationOptions,
 } from "../../core/config/constants.ts";
+
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import { selectedSkills } from "./custom-select.tsx";
+// import { selectedSkills } from "./custom-select.tsx";
 
 const addForm = "add-form";
 const editForm = "edit-form";
@@ -103,11 +96,11 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
       const newEntry = {
         id: 1006,
         name: values.fullName,
-        designation: designationSelected,
         mailID: values.mailID,
-        skills: selectedSkills,
-        workStatus: workOptionSelected,
-        location: locationOptionSelected,
+        designation: valueSingleDesignation?.label,
+        skills: valueMultipleSkill,
+        workStatus: valueSingleWork?.label,
+        location: valueSingleLocation?.label,
       };
 
       if (formtype === addForm) {
@@ -120,8 +113,9 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
       console.log(employeeList);
 
       //go to home
-
       navigate("/");
+
+      //popup
     },
 
     validationSchema,

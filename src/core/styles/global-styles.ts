@@ -94,8 +94,7 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 0.25em;
     width:100%;
     left:0;
-    /* top: calc(100%+00.25em); */
-    top:50px;
+    top: calc(100% + 00.01em);
     background-color:white;
     z-index:100;
   }

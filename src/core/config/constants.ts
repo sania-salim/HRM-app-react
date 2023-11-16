@@ -51,7 +51,7 @@ export const WorkOptions = [
 ];
 
 export const LocationOptions = [
-  { label: "OneGanga TP-3", value: "1" },
+  { label: "Ganga TP-3", value: "1" },
   { label: "Lulu Cyber Tower", value: "2" },
   { label: "Artech Magnet Vazhuthacaud", value: "3" },
   { label: "UL Cyber Park Calicut", value: "4" },
