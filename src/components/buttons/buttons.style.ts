@@ -22,8 +22,7 @@ export const ButtonStyled = styled.button<{
   border: none;
   margin-top: 20px;
   margin-bottom: 30px;
-  &:hover,
-  &:focus {
+  &:hover {
     color: white;
     background-color: ${(props) =>
       props.buttontype === deleteButton ? "#8B0000" : "var(--primaryDark)"};

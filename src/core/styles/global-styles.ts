@@ -113,12 +113,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .option.highlighted{
+    color: white;
     background-color: var(--primaryDark);
     /* background-color: hsl(200,100%,50%); */
-    color: white;
   }
 
   .option.selected{
+    color: white;
     background-color: var(--primaryDark);
     /* background-color: hsl(200,100%,70%); */
   }

@@ -8,6 +8,9 @@ export const TableStyled = styled.table`
 export const TableRowStyled = styled.tr`
   height: 42px;
   width: 100%;
+  &:hover {
+    background-color: var(--selection);
+  }
 `;
 
 export const TableHeaderStyled = styled.th`

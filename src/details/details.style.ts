@@ -5,10 +5,14 @@ export const DetailsDivider = styled.div`
   flex-direction: column;
   > div {
     display: flex;
-    gap: 5px;
+    gap: 10px;
     height: 30px;
     align-items: center;
-    margin: 16px 0;
+    margin: 10px 0;
+  }
+  > p,
+  h3 {
+    margin: 10px 0;
   }
 `;
 

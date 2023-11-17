@@ -22,7 +22,7 @@ import {
   LocationOptions,
   DesignationOptions,
 } from "../../core/config/constants.ts";
-import Popup from "../popup/popup.tsx";
+// import Popup from "../popup/popup.tsx";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -67,14 +67,20 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   if (formtype === editForm) {
     console.log("we are not doomed");
 
+    const currentURL = window.location.href;
+    const url = new URL(currentURL);
+    const path = url.pathname;
+    const segments = path.split("/");
+    const fetchID = Number(segments[segments.length - 1]);
+
     initialvalues = {
-      fullName: employeeList[0].name,
-      dateOfJoining: employeeList[0].dateOfJoining,
-      dateOfBirth: employeeList[0].dateOfBirth,
-      mailID: employeeList[0].mailID,
-      phoneNumber: employeeList[0].phoneNumber,
-      skills: employeeList[0].skills,
-      workStatus: employeeList[0].workStatus,
+      fullName: employeeList[fetchID].name,
+      dateOfJoining: employeeList[fetchID].dateOfJoining,
+      dateOfBirth: employeeList[fetchID].dateOfBirth,
+      mailID: employeeList[fetchID].mailID,
+      phoneNumber: employeeList[fetchID].phoneNumber,
+      skills: employeeList[fetchID].skills,
+      workStatus: employeeList[fetchID].workStatus,
     };
 
     console.log(initialvalues);
@@ -126,7 +132,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
     <form onSubmit={formik.handleSubmit}>
       <OuterFormContainer>
         <img
-          src="src/assets/Profile photo.png"
+          src="../../src/assets/Profile photo.png"
           alt="placeholder/profile image"
           className="ProfilePhoto"
         />

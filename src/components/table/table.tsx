@@ -5,10 +5,29 @@ import {
   TableDataStyled,
 } from "./table.style";
 import { employeeList } from "../../core/config/constants";
+import { useNavigate } from "react-router-dom";
 
 const tempObj = employeeList;
 
 function Table() {
+  const navigate = useNavigate();
+
+  function navigateToPage(
+    e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
+    id: number
+  ) {
+    const target = e.target as HTMLElement;
+
+    const fetchId = id - 1;
+
+    console.log(target.tagName.toLocaleLowerCase());
+    if (target.tagName.toLocaleLowerCase() === "td") {
+      navigate(`/details/${fetchId}`);
+    } else if (target.tagName.toLocaleLowerCase() === "img") {
+      navigate(`/edit/${fetchId}`);
+    }
+  }
+
   return (
     <>
       <TableStyled>
@@ -24,7 +43,10 @@ function Table() {
         </thead>
         <tbody>
           {tempObj.map((item) => (
-            <TableRowStyled key={item.id}>
+            <TableRowStyled
+              key={item.id}
+              onClick={(e) => navigateToPage(e, item.id)}
+            >
               <TableDataStyled>{item.id}</TableDataStyled>
               <TableDataStyled>{item.name}</TableDataStyled>
               <TableDataStyled>{item.designation}</TableDataStyled>
