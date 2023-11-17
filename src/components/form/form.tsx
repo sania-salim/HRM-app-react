@@ -22,6 +22,7 @@ import {
   LocationOptions,
   DesignationOptions,
 } from "../../core/config/constants.ts";
+import Popup from "../popup/popup.tsx";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -108,14 +109,14 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
       } else if (formtype === editForm) {
         // deleteEmployee(newEntry.id);
         // employeeList.push(newEntry);
+        //popup
       }
+
       console.log(newEntry);
       console.log(employeeList);
 
       //go to home
       navigate("/");
-
-      //popup
     },
 
     validationSchema,

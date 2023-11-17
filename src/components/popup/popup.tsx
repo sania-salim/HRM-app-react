@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { ToastOverlay } from "./popup.style.ts";
 
 interface popupProps {
@@ -7,23 +7,21 @@ interface popupProps {
 }
 
 const Popup: React.FC<popupProps> = ({ actionType, name }: popupProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
-  function popup() {
-    setIsOpen(!isOpen);
-  }
+  // function popup() {
+  //   setIsOpen(!isOpen);
+  // }
 
-  if (isOpen) {
-    const message = `${name} has been ${actionType}`;
+  const message = `${name} has been ${actionType}`;
 
-    return (
-      <ToastOverlay>
-        <div>
-          <p>{message}</p>
-        </div>
-      </ToastOverlay>
-    );
-  }
+  return (
+    <ToastOverlay>
+      <div>
+        <p>{message}</p>
+      </div>
+    </ToastOverlay>
+  );
 };
 
 export default Popup;
