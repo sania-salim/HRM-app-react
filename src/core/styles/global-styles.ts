@@ -14,10 +14,12 @@ const GlobalStyle = createGlobalStyle`
     --themeGreen: #5faf5e;
 
   }
+* {
+  font-family:"inter" ;
+  }
 
   body{
     margin:0;
-    font-family:"inter" ;
   }
   
   .ProfilePhoto {

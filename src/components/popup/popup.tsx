@@ -1,27 +1,45 @@
-// import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useMyContext } from "../../context/mycontext.tsx";
 import { ToastOverlay } from "./popup.style.ts";
 
-interface popupProps {
-  actionType: "added" | "edited" | "deleted";
+export interface popupProps {
+  message: string;
+  actionType?: "added" | "edited" | "deleted";
   name: string;
 }
 
-const Popup: React.FC<popupProps> = ({ actionType, name }: popupProps) => {
-  // const [isOpen, setIsOpen] = useState(false);
+const Popup: React.FC<popupProps> = () => {
+  const [openToast, setOpenToast] = useState<boolean>(false);
 
-  // function popup() {
-  //   setIsOpen(!isOpen);
-  // }
+  function popup() {
+    console.log(data, "my context inside popup function");
+    setOpenToast(true);
+    setTimeout(() => {
+      console.log("LALLALAL");
+      setOpenToast(false);
+    }, 5000);
+  }
 
-  const message = `${name} has been ${actionType}`;
+  const { data } = useMyContext();
 
-  return (
-    <ToastOverlay>
-      <div>
-        <p>{message}</p>
-      </div>
-    </ToastOverlay>
-  );
+  useEffect(popup, [data]);
+
+  console.log(data, "my context somewhere");
+
+  const popuptext = `${data.name} has been ${data.message}`;
+  console.log(openToast);
+
+  if (openToast === true) {
+    return (
+      <ToastOverlay opentoast={openToast}>
+        <div>
+          <p>{popuptext}</p>
+        </div>
+      </ToastOverlay>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default Popup;

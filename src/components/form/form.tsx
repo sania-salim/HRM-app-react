@@ -23,6 +23,7 @@ import {
   DesignationOptions,
 } from "../../core/config/constants.ts";
 // import Popup from "../popup/popup.tsx";
+import { useMyContext } from "../../context/mycontext.tsx";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -46,6 +47,8 @@ interface FormProps {
 
 const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const navigate = useNavigate();
+  const { updateData } = useMyContext();
+
   let initialvalues;
 
   const [valueSingleWork, setValueSingleWork] = useState<
@@ -112,17 +115,16 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
 
       if (formtype === addForm) {
         // employeeList.push(newEntry);
+
+        updateData({ name: newEntry.name, message: "has been added" });
+        navigate("/");
       } else if (formtype === editForm) {
         // deleteEmployee(newEntry.id);
         // employeeList.push(newEntry);
         //popup
+        updateData({ name: newEntry.name, message: "has been edited" });
+        navigate("/");
       }
-
-      console.log(newEntry);
-      console.log(employeeList);
-
-      //go to home
-      navigate("/");
     },
 
     validationSchema,
@@ -264,8 +266,13 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
         <Link to="/">
           <Button buttontype="regularButton" buttontext="Cancel" />
         </Link>
-        {formtype && editForm ? (
-          <Button buttontype="deleteButton" buttontext="Delete" buttonicon="" />
+        {formtype === editForm ? (
+          <Button
+            buttontype="deleteButton"
+            buttontext="Delete"
+            buttonicon=""
+            // onSmash={(fetchID) => deleteEmployee(fetchID)}
+          />
         ) : (
           ""
         )}

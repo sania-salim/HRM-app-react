@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
-export const ToastOverlay = styled.div`
-  display: flex;
+export const ToastOverlay = styled.div<{
+  opentoast?: boolean;
+}>`
+  display: ${(props) => (props.opentoast ? "flex" : "none")};
   position: absolute;
   top: 40px;
   right: 40px;
