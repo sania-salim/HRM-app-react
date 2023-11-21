@@ -31,6 +31,10 @@ const GlobalStyle = createGlobalStyle`
   .isSelected{
     background-color: var(--selection);
   }
+
+  a{
+    text-decoration:none;
+  }
   
 
   //////////////////////////////////////////////////////////////

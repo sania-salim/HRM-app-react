@@ -21,7 +21,7 @@ const Popup: React.FC<popupProps> = () => {
     setTimeout(() => {
       console.log("Opening and closing function");
       setOpenToast(false);
-    }, 5000);
+    }, 2400);
   }
 
   const { data } = useMyContext();

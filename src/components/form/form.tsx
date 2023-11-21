@@ -45,6 +45,20 @@ interface FormProps {
   formtype: "add-form" | "edit-form";
 }
 
+function deleteEmployee(fetchID: number) {
+  // const updatedEmployeeList = employeeList.filter(
+  //   (employee) => employee.id !== fetchID
+  // );
+
+  const EmpIndex = employeeList.findIndex(
+    (employee) => employee.id === fetchID
+  );
+
+  if (EmpIndex != -1) {
+    employeeList.splice(EmpIndex, 1);
+  }
+}
+
 const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const navigate = useNavigate();
   const { updateData } = useMyContext();
@@ -68,8 +82,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   );
 
   if (formtype === editForm) {
-    console.log("we are not doomed");
-
     const currentURL = window.location.href;
     const url = new URL(currentURL);
     const path = url.pathname;
@@ -77,6 +89,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
     const fetchID = Number(segments[segments.length - 1]);
 
     initialvalues = {
+      id: employeeList[fetchID].id,
       fullName: employeeList[fetchID].name,
       dateOfJoining: employeeList[fetchID].dateOfJoining,
       dateOfBirth: employeeList[fetchID].dateOfBirth,
@@ -271,7 +284,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
             buttontype="deleteButton"
             buttontext="Delete"
             buttonicon=""
-            // onSmash={(fetchID) => deleteEmployee(fetchID)}
+            // onSmash={() => deleteEmployee(FetchID)}
           />
         ) : (
           ""
