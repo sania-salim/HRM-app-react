@@ -12,6 +12,7 @@ import {
 import Button from "../buttons/button.tsx";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { formContent } from "../../core/config/content.ts";
 
 import { Select, selectOptions } from "./dropdown.tsx";
 
@@ -153,9 +154,9 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           className="ProfilePhoto"
         />
         <InnerFormContainer>
-          <h3>Employee ID: 1001</h3>
+          <h3>{formContent.formHeading}</h3>
           <FormFieldDivider>
-            <LabelForm>Full Name</LabelForm>
+            <LabelForm>{formContent.fullNameLabel}</LabelForm>
             <InputFullStyled
               type="text"
               id="fullName"
@@ -170,7 +171,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
 
           <FormDivider>
             <FormFieldDivider>
-              <LabelForm>Date of joining</LabelForm>
+              <LabelForm>{formContent.dateOfJoiningLabel}</LabelForm>
               <InputHalfStyled
                 type="date"
                 id="dateOfJoining"
@@ -184,7 +185,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
             </FormFieldDivider>
 
             <FormFieldDivider>
-              <LabelForm>Date of birth</LabelForm>
+              <LabelForm>{formContent.dateOfBirthLabel}</LabelForm>
               <InputHalfStyled
                 type="date"
                 id="dateOfBirth"
@@ -198,10 +199,10 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
             </FormFieldDivider>
           </FormDivider>
 
-          <h3>Contact details</h3>
+          <h3>{formContent.contactHeading}</h3>
           <FormDivider>
             <FormFieldDivider>
-              <LabelForm>Phone number</LabelForm>
+              <LabelForm>{formContent.phoneNumberLabel}</LabelForm>
               <InputHalfStyled
                 type="text"
                 id="phoneNumber"
@@ -215,7 +216,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
             </FormFieldDivider>
 
             <FormFieldDivider>
-              <LabelForm>Mail ID</LabelForm>
+              <LabelForm>{formContent.mailIdLabel}</LabelForm>
               <InputHalfStyled
                 type="email"
                 id="mailID"
@@ -229,12 +230,12 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
             </FormFieldDivider>
           </FormDivider>
 
-          <h3>Employment details</h3>
+          <h3>{formContent.employmentDetailsHeading}</h3>
           <FormDivider>
             <FormFieldDivider>
               {/* <CustomSelect></CustomSelect> */}
               {/* Skills dropdown - multi-select */}
-              <LabelForm>Select skills</LabelForm>
+              <LabelForm>{formContent.skillSelectLabel}</LabelForm>
               <Select
                 multiple
                 options={SkillOptions}
@@ -245,7 +246,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
 
             <FormFieldDivider>
               {/* <CustomSimpleSelect selectList="designation"></CustomSimpleSelect> */}
-              <LabelForm>Select designation</LabelForm>
+              <LabelForm>{formContent.designationLabel}</LabelForm>
               <Select
                 options={DesignationOptions}
                 value={valueSingleDesignation}
@@ -256,7 +257,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           <FormDivider>
             <FormFieldDivider>
               {/* <CustomSimpleSelect selectList="workOptions"></CustomSimpleSelect> */}
-              <LabelForm>Select mode of work</LabelForm>
+              <LabelForm>{formContent.modeOfWorkLabel}</LabelForm>
               <Select
                 options={WorkOptions}
                 value={valueSingleWork}
@@ -266,7 +267,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
 
             <FormFieldDivider>
               {/* <CustomSimpleSelect selectList="workLocation"></CustomSimpleSelect> */}
-              <LabelForm>Select reporting location</LabelForm>
+              <LabelForm>{formContent.selectLocationLabel}</LabelForm>
               <Select
                 options={LocationOptions}
                 value={valueSingleLocation}

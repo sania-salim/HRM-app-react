@@ -12,8 +12,8 @@ export const detailsContent = {
   employeeDesignation: "Serial chaser",
   employeeMail: "tom@catchmouse.com",
   employeePhoneNumber: "7895789468",
-  employeeDOJ: "Date of joining:14th July 2023",
-  employeeDOB: "Date of birth:11th May 2001",
+  employeeDOJ: "Date of joining: ",
+  employeeDOB: "Date of birth: ",
   employeeLocation: "Ganga building,Trivandrum",
 };
 
@@ -35,6 +35,10 @@ export const formContent = {
   phoneNumberLabel: "Phone number",
   mailIdLabel: "Mail ID",
   employmentDetailsHeading: "Employment details",
+  skillSelectLabel: "Select skills",
+  designationLabel: "Select designation",
+  modeOfWorkLabel: "Select mode of work",
+  selectLocationLabel: "Select reporting location",
 };
 
 export const customSelect = {

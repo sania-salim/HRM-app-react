@@ -6,6 +6,7 @@ import {
 } from "./table.style";
 import { employeeList } from "../../core/config/constants";
 import { useNavigate } from "react-router-dom";
+import { tableContent } from "../../core/config/content";
 
 const tempObj = employeeList;
 
@@ -33,14 +34,19 @@ function Table() {
       <TableStyled>
         <thead>
           <TableRowStyled>
-            <TableHeaderStyled>ID</TableHeaderStyled>
-            <TableHeaderStyled>Name</TableHeaderStyled>
-            <TableHeaderStyled>Designation</TableHeaderStyled>
-            <TableHeaderStyled>Mail ID</TableHeaderStyled>
-            <TableHeaderStyled>Work status</TableHeaderStyled>
-            <TableHeaderStyled>Edit</TableHeaderStyled>
+            <TableHeaderStyled>{tableContent.IDheading}</TableHeaderStyled>
+            <TableHeaderStyled>{tableContent.NameHeading}</TableHeaderStyled>
+            <TableHeaderStyled>
+              {tableContent.DesignationHeading}
+            </TableHeaderStyled>
+            <TableHeaderStyled>{tableContent.MailIDHeading}</TableHeaderStyled>
+            <TableHeaderStyled>
+              {tableContent.WorkStatusHeading}
+            </TableHeaderStyled>
+            <TableHeaderStyled>{tableContent.EditHeading}</TableHeaderStyled>
           </TableRowStyled>
         </thead>
+
         <tbody>
           {tempObj.map((item) => (
             <TableRowStyled

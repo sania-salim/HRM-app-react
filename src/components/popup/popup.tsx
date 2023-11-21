@@ -12,6 +12,7 @@ export interface popupProps {
 }
 
 const Popup: React.FC<popupProps> = () => {
+  const { data, updateData } = useMyContext();
   const [openToast, setOpenToast] = useState<boolean>(false);
 
   console.log("Inside popup function");
@@ -21,10 +22,9 @@ const Popup: React.FC<popupProps> = () => {
     setTimeout(() => {
       console.log("Opening and closing function");
       setOpenToast(false);
+      updateData({ name: "", message: "" });
     }, 5000);
   }
-
-  const { data } = useMyContext();
 
   useEffect(popup, [data]);
 

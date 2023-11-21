@@ -34,22 +34,28 @@ function Details() {
           />
         </DetailsDivider>
         <DetailsDivider>
-          <h3>Thomas</h3>
-          <p>Serial chaser</p>
+          <h3>{emp.name}</h3>
+          <p>{emp.designation}</p>
           <div>
-            <img src="src/assets/mail.svg" alt="" />
-            <p>tom@catchmouse.com</p>
+            <img src="../../src/assets/mail.svg" alt="" />
+            <p>{emp.mailID}</p>
           </div>
           <div>
-            <img src="src/assets/phone number.svg" alt="" />
-            <p>7895789468</p>
+            <img src="../../src/assets/phone number.svg" alt="" />
+            <p>{emp.phoneNumber}7895789468</p>
           </div>
 
-          <p>Date of joining:14th July 2023</p>
-          <p>Date of birth:11th May 2001</p>
+          <p>
+            {detailsContent.employeeDOJ}
+            {emp.dateOfJoining}
+          </p>
+          <p>
+            {detailsContent.employeeDOB}
+            {emp.dateOfBirth}
+          </p>
           <div>
-            <img src="src/assets/location.svg" alt="" />
-            <p>Ganga building,Trivandrum</p>
+            <img src="../../src/assets/location.svg" alt="" />
+            <p>{detailsContent.employeeLocation}</p>
           </div>
         </DetailsDivider>
       </DetailsMain>

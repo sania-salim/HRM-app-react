@@ -18,6 +18,10 @@ const GlobalStyle = createGlobalStyle`
   font-family:"inter" ;
   }
 
+  a{
+    text-decoration:none;
+  }
+
   body{
     margin:0;
   }
