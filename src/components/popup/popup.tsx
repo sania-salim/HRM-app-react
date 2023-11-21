@@ -11,11 +11,12 @@ export interface popupProps {
 const Popup: React.FC<popupProps> = () => {
   const [openToast, setOpenToast] = useState<boolean>(false);
 
+  console.log("Inside popup function");
+
   function popup() {
-    console.log(data, "my context inside popup function");
     setOpenToast(true);
     setTimeout(() => {
-      console.log("LALLALAL");
+      console.log("Opening and closing function");
       setOpenToast(false);
     }, 5000);
   }
@@ -29,7 +30,7 @@ const Popup: React.FC<popupProps> = () => {
   const popuptext = `${data.name} has been ${data.message}`;
   console.log(openToast);
 
-  if (openToast === true) {
+  if (openToast) {
     return (
       <ToastOverlay opentoast={openToast}>
         <div>

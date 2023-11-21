@@ -22,7 +22,6 @@ export const MyProvider: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   const contextValue: contextType = { data, updateData };
-  console.log(data, "my context");
 
   return (
     <MyContext.Provider value={contextValue}>{children}</MyContext.Provider>
