@@ -13,6 +13,7 @@ import Button from "../buttons/button.tsx";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { formContent } from "../../core/config/content.ts";
+import { Confirm } from "../confirmation/confirm.tsx";
 
 import { Select, selectOptions } from "./dropdown.tsx";
 
@@ -46,23 +47,10 @@ interface FormProps {
   formtype: "add-form" | "edit-form";
 }
 
-function deleteEmployee(fetchID: number) {
-  // const updatedEmployeeList = employeeList.filter(
-  //   (employee) => employee.id !== fetchID
-  // );
-
-  const EmpIndex = employeeList.findIndex(
-    (employee) => employee.id === fetchID
-  );
-
-  if (EmpIndex != -1) {
-    employeeList.splice(EmpIndex, 1);
-  }
-}
-
 const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const navigate = useNavigate();
   const { updateData } = useMyContext();
+  const [openConfirm, setOpenConfirm] = useState<boolean>(false);
 
   let initialvalues;
 
@@ -81,6 +69,24 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const [valueMultipleSkill, setValueMultipleSkill] = useState<selectOptions[]>(
     [SkillOptions[0]]
   );
+
+  //employee delete function
+
+  function deleteEmployee(fetchID: number) {
+    // const updatedEmployeeList = employeeList.filter(
+    //   (employee) => employee.id !== fetchID
+    // );
+
+    const EmpIndex = employeeList.findIndex(
+      (employee) => employee.id === fetchID
+    );
+
+    if (EmpIndex != -1) {
+      employeeList.splice(EmpIndex, 1);
+    }
+
+    setOpenConfirm(true);
+  }
 
   if (formtype === editForm) {
     console.log("we are not doomed");
@@ -148,6 +154,15 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <OuterFormContainer>
+        {openConfirm ? (
+          <Confirm
+            confirm={openConfirm}
+            name={formik.values.fullName}
+          ></Confirm>
+        ) : (
+          ""
+        )}
+
         <img
           src="../../src/assets/Profile photo.png"
           alt="placeholder/profile image"
@@ -286,7 +301,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
             buttontype="deleteButton"
             buttontext="Delete"
             buttonicon=""
-            // onSmash={(fetchID) => deleteEmployee(fetchID)}
+            onSmash={() => deleteEmployee(2)}
           />
         ) : (
           ""
