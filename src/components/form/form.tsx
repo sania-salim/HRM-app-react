@@ -45,6 +45,20 @@ interface FormProps {
   formtype: "add-form" | "edit-form";
 }
 
+function deleteEmployee(fetchID: number) {
+  // const updatedEmployeeList = employeeList.filter(
+  //   (employee) => employee.id !== fetchID
+  // );
+
+  const EmpIndex = employeeList.findIndex(
+    (employee) => employee.id === fetchID
+  );
+
+  if (EmpIndex != -1) {
+    employeeList.splice(EmpIndex, 1);
+  }
+}
+
 const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const navigate = useNavigate();
   const { updateData } = useMyContext();
