@@ -6,20 +6,10 @@ import Button from "../components/buttons/button.tsx";
 import Popup from "../components/popup/popup.tsx";
 import { useMyContext } from "../context/mycontext.tsx";
 
-// import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { popupProps } from "../components/popup/popup.tsx";
+import { getData } from "../core/api/api.ts";
 
 function Home() {
   const { data } = useMyContext();
-  // const [popupDetails, setPopupDetails] = useState({
-  //   actionType: "",
-  //   name: "",
-  // });
-
-  // function updatePopup(popupDetails: popupProps) {
-  //   setPopupDetails(popupDetails);
-  // }
 
   return (
     <>
@@ -34,7 +24,12 @@ function Home() {
           buttonicon=""
         />
 
-        <Button buttontype="regularButton" buttontext="Next" buttonicon="" />
+        <Button
+          buttontype="regularButton"
+          buttontext="Next"
+          buttonicon=""
+          onSmash={() => getData("/employee/1")}
+        />
       </ButtonContainer>
     </>
   );
