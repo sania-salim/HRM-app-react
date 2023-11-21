@@ -17,8 +17,8 @@ const Button: React.FC<ButtonProps> = ({
   onSmash,
 }: ButtonProps) => {
   return (
-    <ButtonStyled buttontype={buttontype} type={type} onClick={onSmash}>
-      {buttonicon ? <img src={buttonicon} alt="" /> : ""}
+    <ButtonStyled buttontype={buttontype}>
+      <img src={buttonicon} alt="" />
       {buttontext}
     </ButtonStyled>
   );

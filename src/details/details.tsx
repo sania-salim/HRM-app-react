@@ -2,6 +2,7 @@ import Header from "../components/header/header.js";
 import Button from "../components/buttons/button.js";
 import { ButtonContainer, PageHeading } from "../components/form/form.style.js";
 import { DetailsDivider, DetailsMain } from "./details.style.js";
+import { detailsContent } from "../core/config/content.js";
 import { employeeList } from "../core/config/constants.js";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -23,7 +24,7 @@ function Details() {
   return (
     <>
       <Header />
-      <PageHeading>Employee details</PageHeading>
+      <PageHeading>{detailsContent.pageHeading}</PageHeading>
       <DetailsMain>
         <DetailsDivider>
           <img
@@ -33,22 +34,22 @@ function Details() {
           />
         </DetailsDivider>
         <DetailsDivider>
-          <h3>{emp.name}</h3>
-          <p>{emp.designation}</p>
+          <h3>Thomas</h3>
+          <p>Serial chaser</p>
           <div>
-            <img src="../../src/assets/mail.svg" alt="" />
-            <p>{emp.mailID}</p>
+            <img src="src/assets/mail.svg" alt="" />
+            <p>tom@catchmouse.com</p>
           </div>
           <div>
-            <img src="../../src/assets/phone number.svg" alt="" />
-            <p>7895789468{emp.phoneNumber}</p>
+            <img src="src/assets/phone number.svg" alt="" />
+            <p>7895789468</p>
           </div>
 
-          <p>Date of Joining: {emp.dateOfJoining}</p>
-          <p>Date of Birth: {emp.dateOfBirth}</p>
+          <p>Date of joining:14th July 2023</p>
+          <p>Date of birth:11th May 2001</p>
           <div>
-            <img src="../../src/assets/location.svg" alt="" />
-            <p>{emp.workStatus}</p>
+            <img src="src/assets/location.svg" alt="" />
+            <p>Ganga building,Trivandrum</p>
           </div>
         </DetailsDivider>
       </DetailsMain>
