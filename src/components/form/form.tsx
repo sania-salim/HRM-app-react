@@ -10,7 +10,7 @@ import {
   ButtonContainer,
 } from "./form.style.ts";
 import Button from "../buttons/button.tsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { formContent } from "../../core/config/content.ts";
 import { Confirm } from "../confirmation/confirm.tsx";
@@ -26,6 +26,8 @@ import {
 } from "../../core/config/constants.ts";
 // import Popup from "../popup/popup.tsx";
 import { useMyContext } from "../../context/mycontext.tsx";
+import { iEmployee } from "../table/table.tsx";
+import { getData } from "../../core/api/api.ts";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -51,8 +53,20 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const navigate = useNavigate();
   const { updateData } = useMyContext();
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
+  const [emp, setEmp] = useState<iEmployee>();
+  useEffect(getEmployee, []);
 
-  let initialvalues;
+  let initialvalues: {
+    fullName: string;
+    dateOfJoining: string;
+    dateOfBirth: string;
+    mailID: string;
+    phoneNumber: string;
+    // skills: emp.skills,
+    // workStatus: emp.workStatus,
+  };
+
+  let fetchID = 0;
 
   const [valueSingleWork, setValueSingleWork] = useState<
     selectOptions | undefined
@@ -69,6 +83,30 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const [valueMultipleSkill, setValueMultipleSkill] = useState<selectOptions[]>(
     [SkillOptions[0]]
   );
+
+  const currentURL = window.location.href;
+  const url = new URL(currentURL);
+  const path = url.pathname;
+  const segments = path.split("/");
+  fetchID = Number(segments[segments.length - 1]);
+
+  //get employee to fill in edit form
+  function getEmployee() {
+    console.log("im inside fetch employee function in edit form");
+
+    if (fetchID) {
+      getData(`/employee/${fetchID}`)
+        .then((response) => {
+          setEmp(response.data.data);
+          console.log("Emp", emp);
+        })
+        .catch((err) => {
+          console.log("error in getting table:", err);
+        });
+    } else {
+      console.log("im in else not fetched");
+    }
+  }
 
   //employee delete function
 
@@ -88,23 +126,23 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
     setOpenConfirm(true);
   }
 
-  if (formtype === editForm) {
+  if (formtype === editForm && emp) {
     console.log("we are not doomed");
 
-    const currentURL = window.location.href;
-    const url = new URL(currentURL);
-    const path = url.pathname;
-    const segments = path.split("/");
-    const fetchID = Number(segments[segments.length - 1]);
+    // const currentURL = window.location.href;
+    // const url = new URL(currentURL);
+    // const path = url.pathname;
+    // const segments = path.split("/");
+    // fetchID = Number(segments[segments.length - 1]);
 
     initialvalues = {
-      fullName: employeeList[fetchID].name,
-      dateOfJoining: employeeList[fetchID].dateOfJoining,
-      dateOfBirth: employeeList[fetchID].dateOfBirth,
-      mailID: employeeList[fetchID].mailID,
-      phoneNumber: employeeList[fetchID].phoneNumber,
-      skills: employeeList[fetchID].skills,
-      workStatus: employeeList[fetchID].workStatus,
+      fullName: emp.firstName,
+      dateOfJoining: emp.dateOfJoining,
+      dateOfBirth: emp.dob,
+      mailID: emp.email,
+      phoneNumber: "83475692374",
+      // skills: emp.skills,
+      // workStatus: emp.workStatus,
     };
 
     console.log(initialvalues);
@@ -115,10 +153,11 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
       dateOfBirth: "",
       mailID: "",
       phoneNumber: "",
-      skills: [],
-      workStatus: "",
+      // skills: [],
+      // workStatus: "",
     };
   }
+
   const formik = useFormik({
     initialValues: initialvalues,
 
@@ -143,6 +182,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
         // deleteEmployee(newEntry.id);
         // employeeList.push(newEntry);
         //popup
+
         updateData({ name: newEntry.name, message: "has been edited" });
         navigate("/");
       }

@@ -5,9 +5,15 @@ import { DetailsDivider, DetailsMain } from "./details.style.js";
 import { detailsContent } from "../core/config/content.js";
 import { employeeList } from "../core/config/constants.js";
 import { Link, useNavigate } from "react-router-dom";
+import { getData } from "../core/api/api.js";
+import { iEmployee } from "../components/table/table.js";
+import { useEffect, useState } from "react";
 
 function Details() {
   const navigate = useNavigate();
+  const [emp, setEmp] = useState<iEmployee>();
+
+  useEffect(getEmployee, []);
 
   function navigateToPage(id: number) {
     navigate(`/edit/${id}`);
@@ -19,7 +25,22 @@ function Details() {
   const segments = path.split("/");
   const fetchID = Number(segments[segments.length - 1]);
 
-  let emp = employeeList[fetchID];
+  // let emp = employeeList[fetchID];
+
+  // getEmployee();
+
+  function getEmployee() {
+    console.log("im inside fetch employee function");
+
+    getData(`/employee/${fetchID}`)
+      .then((response) => {
+        setEmp(response.data.data);
+        console.log("Emp", emp);
+      })
+      .catch((err) => {
+        console.log("error in getting table:", err);
+      });
+  }
 
   return (
     <>
@@ -34,24 +55,25 @@ function Details() {
           />
         </DetailsDivider>
         <DetailsDivider>
-          <h3>{emp.name}</h3>
-          <p>{emp.designation}</p>
+          <h3>{emp ? emp.firstName : null}</h3>
+          <p>{emp ? emp.designation : null}</p>
           <div>
             <img src="../../src/assets/mail.svg" alt="" />
-            <p>{emp.mailID}</p>
+            <p>{emp ? emp.email : null}</p>
           </div>
           <div>
             <img src="../../src/assets/phone number.svg" alt="" />
-            <p>{emp.phoneNumber}7895789468</p>
+            {/* <p>{emp ? emp.phone : null}7895789468</p> */}
+            <p>7895789468</p>
           </div>
 
           <p>
             {detailsContent.employeeDOJ}
-            {emp.dateOfJoining}
+            {emp ? emp.dateOfJoining : null}
           </p>
           <p>
             {detailsContent.employeeDOB}
-            {emp.dateOfBirth}
+            {emp ? emp.dob : null}
           </p>
           <div>
             <img src="../../src/assets/location.svg" alt="" />

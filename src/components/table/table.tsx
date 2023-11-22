@@ -4,30 +4,41 @@ import {
   TableHeaderStyled,
   TableDataStyled,
 } from "./table.style";
-import { employeeList } from "../../core/config/constants";
+// import { employeeList } from "../../core/config/constants";
 import { useNavigate } from "react-router-dom";
 import { tableContent } from "../../core/config/content";
 import { getData } from "../../core/api/api";
+import { useEffect, useState } from "react";
 
 // const tempObj = employeeList;
 
-let tempObj: any = [];
-
-function getTable() {
-  getData("/employee")
-    .then((response) => {
-      tempObj = response.data.employees;
-      console.log(tempObj);
-    })
-    .catch((err) => {
-      console.log("error in getting table:", err);
-    });
+export interface iEmployee {
+  id: number;
+  firstName: string;
+  designation: string;
+  email: string;
+  dateOfJoining: string;
+  dob: string;
+  skills: Array<object>;
+  // workstatus
+  // location
 }
-
-getTable();
 
 function Table() {
   const navigate = useNavigate();
+  const [temp, setTemp] = useState([]);
+  useEffect(getTable, []);
+
+  function getTable() {
+    getData("/employee")
+      .then((response) => {
+        setTemp(response.data.data.employees);
+        console.log("emp", temp);
+      })
+      .catch((err) => {
+        console.log("error in getting table:", err);
+      });
+  }
 
   function navigateToPage(
     e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
@@ -64,15 +75,15 @@ function Table() {
         </thead>
 
         <tbody>
-          {tempObj.map((item: any) => (
+          {temp.map((item: iEmployee) => (
             <TableRowStyled
               key={item.id}
               onClick={(e) => navigateToPage(e, item.id)}
             >
               <TableDataStyled>{item.id}</TableDataStyled>
-              <TableDataStyled>{item.name}</TableDataStyled>
+              <TableDataStyled>{item.firstName}</TableDataStyled>
               <TableDataStyled>{item.designation}</TableDataStyled>
-              <TableDataStyled>{item.mailID}</TableDataStyled>
+              <TableDataStyled>{item.email}</TableDataStyled>
               <TableDataStyled>
                 <img src="src/assets/work-from-home.svg" alt="" />
               </TableDataStyled>

@@ -29,7 +29,6 @@ export const MyProvider: FC<{ children: ReactNode }> = ({ children }) => {
 };
 
 // custom hook to use context
-
 export const useMyContext = (): contextType => {
   const context = useContext(MyContext);
 

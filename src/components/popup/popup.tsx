@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMyContext } from "../../context/mycontext.tsx";
 import { ToastOverlay } from "./popup.style.ts";
-import { popupMessage } from "../../core/config/content.ts";
-
-const message = popupMessage.editPopupMessage;
 
 export interface popupProps {
   message: string;

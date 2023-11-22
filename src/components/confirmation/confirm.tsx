@@ -3,7 +3,7 @@ import { ButtonContainer } from "../form/form.style";
 import Button from "../buttons/button";
 
 export interface confirmProps {
-  name: string;
+  name: string | undefined;
   confirm?: boolean;
 }
 
