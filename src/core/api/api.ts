@@ -8,3 +8,7 @@ const api = axios.create({
 export const getData = (url: string) => {
   return api.get(url);
 };
+
+export const postData = (url: string, payload: object) => {
+  return api.post(url, payload);
+};

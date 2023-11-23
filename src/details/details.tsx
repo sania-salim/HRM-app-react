@@ -3,7 +3,7 @@ import Button from "../components/buttons/button.js";
 import { ButtonContainer, PageHeading } from "../components/form/form.style.js";
 import { DetailsDivider, DetailsMain } from "./details.style.js";
 import { detailsContent } from "../core/config/content.js";
-import { employeeList } from "../core/config/constants.js";
+// import { employeeList } from "../core/config/constants.js";
 import { Link, useNavigate } from "react-router-dom";
 import { getData } from "../core/api/api.js";
 import { iEmployee } from "../components/table/table.js";
@@ -24,6 +24,7 @@ function Details() {
   const path = url.pathname;
   const segments = path.split("/");
   const fetchID = Number(segments[segments.length - 1]);
+  const empID = fetchID + 1;
 
   // let emp = employeeList[fetchID];
 
@@ -32,7 +33,7 @@ function Details() {
   function getEmployee() {
     console.log("im inside fetch employee function");
 
-    getData(`/employee/${fetchID}`)
+    getData(`/employee/${empID}`)
       .then((response) => {
         setEmp(response.data.data);
         console.log("Emp", emp);
@@ -47,6 +48,7 @@ function Details() {
       <Header />
       <PageHeading>{detailsContent.pageHeading}</PageHeading>
       <DetailsMain>
+        <DetailsDivider>{emp?.skills}</DetailsDivider>
         <DetailsDivider>
           <img
             src="../../src/assets/Profile photo.png"
@@ -91,7 +93,7 @@ function Details() {
           buttontext="Edit"
           buttonicon=""
           onSmash={() => {
-            navigateToPage(fetchID);
+            navigateToPage(empID);
           }}
         />
       </ButtonContainer>

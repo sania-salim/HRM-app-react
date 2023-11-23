@@ -32,6 +32,7 @@ export function Select({ value, onChange, options, multiple }: selectProps) {
     if (multiple) {
       if (!value.includes(option)) {
         onChange?.([...value, option]);
+        console.log("in selectoption", value);
       } else {
         onChange?.(value.filter((o) => o !== option));
       }
@@ -59,13 +60,13 @@ export function Select({ value, onChange, options, multiple }: selectProps) {
             ? value.map((v) => (
                 <button
                   className="optionbadge"
-                  key={v.value}
+                  key={v?.value}
                   onClick={(e) => {
                     e.stopPropagation;
                     selectOption(v);
                   }}
                 >
-                  {v.label}
+                  {v?.label}
                   <span className="removebtn">&times;</span>
                 </button>
               ))

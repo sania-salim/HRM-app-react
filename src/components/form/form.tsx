@@ -14,16 +14,17 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { formContent } from "../../core/config/content.ts";
 import { Confirm } from "../confirmation/confirm.tsx";
+import { postData } from "../../core/api/api.ts";
 
 import { Select, selectOptions } from "./dropdown.tsx";
 
 import {
   employeeList,
-  SkillOptions,
   WorkOptions,
   LocationOptions,
   DesignationOptions,
 } from "../../core/config/constants.ts";
+
 // import Popup from "../popup/popup.tsx";
 import { useMyContext } from "../../context/mycontext.tsx";
 import { iEmployee } from "../table/table.tsx";
@@ -36,6 +37,7 @@ import * as Yup from "yup";
 
 const addForm = "add-form";
 const editForm = "edit-form";
+let SkillOptions: Array<selectOptions> = [];
 
 const validationSchema = Yup.object({
   fullName: Yup.string().max(50, "Too Long!").required("Required field"),
@@ -89,6 +91,17 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const path = url.pathname;
   const segments = path.split("/");
   fetchID = Number(segments[segments.length - 1]);
+
+  // fetching options for skill dropdown
+  getData(`/skills`).then((skillObj) => {
+    let temp = skillObj.data.data;
+    SkillOptions = temp.map(({ skill, id }: { skill: string; id: number }) => ({
+      label: skill,
+      value: id,
+    }));
+
+    console.log("skillopts", SkillOptions);
+  });
 
   //get employee to fill in edit form
   function getEmployee() {
@@ -164,26 +177,35 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
     onSubmit: (values) => {
       // object to push upon submission
       const newEntry = {
-        id: 1006,
-        name: values.fullName,
-        mailID: values.mailID,
+        firstName: values.fullName,
+        email: values.mailID,
         designation: valueSingleDesignation?.label,
-        skills: valueMultipleSkill,
-        workStatus: valueSingleWork?.label,
-        location: valueSingleLocation?.label,
+        dob: values.dateOfBirth,
+        dateOfJoining: values.dateOfJoining,
+        department: 4,
+        // skills: valueMultipleSkill,
+        // workStatus: valueSingleWork?.label,
+        // location: valueSingleLocation?.label,
       };
 
       if (formtype === addForm) {
         // employeeList.push(newEntry);
-
-        updateData({ name: newEntry.name, message: "has been added" });
+        postData("/employee", newEntry)
+          .then((res) => {
+            console.log("done", res);
+          })
+          .catch((err) => {
+            console.log("error in posting new employee", err);
+          });
+        console.log("im in add form submission");
+        updateData({ name: newEntry.firstName, message: "has been added" });
         navigate("/");
       } else if (formtype === editForm) {
         // deleteEmployee(newEntry.id);
         // employeeList.push(newEntry);
         //popup
-
-        updateData({ name: newEntry.name, message: "has been edited" });
+        postData("/employee", newEntry);
+        // updateData({ name: newEntry.name, message: "has been edited" });
         navigate("/");
       }
     },
