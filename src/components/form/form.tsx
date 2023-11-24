@@ -51,24 +51,38 @@ interface FormProps {
   formtype: "add-form" | "edit-form";
 }
 
+interface myObj {
+  fullName: string | undefined;
+  dateOfJoining: string | undefined;
+  dateOfBirth: string | undefined;
+  mailID: string | undefined;
+  phoneNumber: string | undefined;
+  // skills: emp.skills,
+  // workStatus: emp.workStatus,
+}
+
 const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const navigate = useNavigate();
   const { updateData } = useMyContext();
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
   const [emp, setEmp] = useState<iEmployee>();
-  useEffect(getEmployee, []);
-
-  let initialvalues: {
-    fullName: string;
-    dateOfJoining: string;
-    dateOfBirth: string;
-    mailID: string;
-    phoneNumber: string;
-    // skills: emp.skills,
-    // workStatus: emp.workStatus,
-  };
+  console.log("Emp is here", emp);
+  const [initialvalues, setInitialvalues] = useState<myObj>({
+    fullName: "",
+    dateOfJoining: "",
+    dateOfBirth: "",
+    mailID: "",
+    phoneNumber: "",
+    // skills: [],
+    // workStatus: "",
+  });
 
   let fetchID = 0;
+  // let emp: iEmployee;
+
+  useEffect(() => {
+    getEmployee(fetchID);
+  }, []);
 
   const [valueSingleWork, setValueSingleWork] = useState<
     selectOptions | undefined
@@ -86,12 +100,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
     [SkillOptions[0]]
   );
 
-  const currentURL = window.location.href;
-  const url = new URL(currentURL);
-  const path = url.pathname;
-  const segments = path.split("/");
-  fetchID = Number(segments[segments.length - 1]);
-
   // fetching options for skill dropdown
   getData(`/skills`).then((skillObj) => {
     let temp = skillObj.data.data;
@@ -104,21 +112,19 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   });
 
   //get employee to fill in edit form
-  function getEmployee() {
+  function getEmployee(fetchID: number) {
     console.log("im inside fetch employee function in edit form");
 
-    if (fetchID) {
-      getData(`/employee/${fetchID}`)
-        .then((response) => {
-          setEmp(response.data.data);
-          console.log("Emp", emp);
-        })
-        .catch((err) => {
-          console.log("error in getting table:", err);
-        });
-    } else {
-      console.log("im in else not fetched");
-    }
+    getData(`/employee/${fetchID}`)
+      .then((response) => {
+        // emp = response.data.data;
+        setEmp(response.data.data);
+        console.log("Emp is here", emp);
+        console.log("response", response);
+      })
+      .catch((err) => {
+        console.log("error in getting table:", err);
+      });
   }
 
   //employee delete function
@@ -139,39 +145,33 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
     setOpenConfirm(true);
   }
 
-  if (formtype === editForm && emp) {
-    console.log("we are not doomed");
+  useEffect(() => {
+    console.log("inside use effect to set initial value");
 
-    // const currentURL = window.location.href;
-    // const url = new URL(currentURL);
-    // const path = url.pathname;
-    // const segments = path.split("/");
-    // fetchID = Number(segments[segments.length - 1]);
+    if (formtype === editForm) {
+      console.log("we are not doomed");
 
-    initialvalues = {
-      fullName: emp.firstName,
-      dateOfJoining: emp.dateOfJoining,
-      dateOfBirth: emp.dob,
-      mailID: emp.email,
-      phoneNumber: "83475692374",
-      // skills: emp.skills,
-      // workStatus: emp.workStatus,
-    };
+      const currentURL = window.location.href;
+      const url = new URL(currentURL);
+      const path = url.pathname;
+      const segments = path.split("/");
+      fetchID = Number(segments[segments.length - 1]);
 
-    console.log(initialvalues);
-  } else {
-    initialvalues = {
-      fullName: "",
-      dateOfJoining: "",
-      dateOfBirth: "",
-      mailID: "",
-      phoneNumber: "",
-      // skills: [],
-      // workStatus: "",
-    };
-  }
+      setInitialvalues({
+        fullName: emp?.firstName,
+        dateOfJoining: emp?.dateOfJoining,
+        dateOfBirth: emp?.dob,
+        mailID: emp?.email,
+        phoneNumber: "83475692374",
+        // skills: emp.skills,
+        // workStatus: emp.workStatus,
+      });
 
-  const formik = useFormik({
+      console.log("Thank god initialvals:", initialvalues);
+    }
+  }, [formtype, emp]);
+
+  const formik = useFormik<myObj>({
     initialValues: initialvalues,
 
     onSubmit: (values) => {

@@ -48,7 +48,7 @@ function Details() {
       <Header />
       <PageHeading>{detailsContent.pageHeading}</PageHeading>
       <DetailsMain>
-        <DetailsDivider>{emp?.skills}</DetailsDivider>
+        {/* <DetailsDivider>{emp?.skills}</DetailsDivider> */}
         <DetailsDivider>
           <img
             src="../../src/assets/Profile photo.png"
