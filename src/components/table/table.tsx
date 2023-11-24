@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { tableContent } from "../../core/config/content";
 import { getData } from "../../core/api/api";
 import { useEffect, useState } from "react";
+import { useMyContext } from "../../context/mycontext";
+// import { empData } from "../../context/mycontext";
 
 // const tempObj = employeeList;
 
@@ -26,14 +28,16 @@ export interface iEmployee {
 
 function Table() {
   const navigate = useNavigate();
-  const [temp, setTemp] = useState([]);
+  const { table, getEmpData } = useMyContext();
+
+  // const [table, setTable] = useState([]);
   useEffect(getTable, []);
 
   function getTable() {
     getData("/employee")
       .then((response) => {
-        setTemp(response.data.data.employees);
-        console.log("emp", temp);
+        getEmpData(response.data.data.employees);
+        console.log("emp", table);
       })
       .catch((err) => {
         console.log("error in getting table:", err);
@@ -75,7 +79,7 @@ function Table() {
         </thead>
 
         <tbody>
-          {temp.map((item: iEmployee) => (
+          {table?.map((item) => (
             <TableRowStyled
               key={item.id}
               onClick={(e) => navigateToPage(e, item.id)}

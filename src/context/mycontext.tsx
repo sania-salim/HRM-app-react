@@ -1,13 +1,25 @@
 import { FC, ReactNode, createContext, useContext, useState } from "react";
+// import { iEmployee } from "../components/table/table";
 
 interface propData {
   name: string;
   message: string;
 }
 
+export interface empData {
+  id: number;
+  firstName: string;
+  dateOfJoining: string;
+  dob: string;
+  email: string;
+  designation: string;
+}
+
 interface contextType {
   data: propData;
   updateData: (newData: Partial<propData>) => void;
+  table: Array<empData> | undefined;
+  getEmpData: (list: Array<empData>) => void;
 }
 
 // creating context with initial values
@@ -21,7 +33,13 @@ export const MyProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setData((prevData) => ({ ...prevData, ...newData }));
   };
 
-  const contextValue: contextType = { data, updateData };
+  // employee list data state
+  const [table, setTable] = useState<Array<empData> | undefined>([]);
+  const getEmpData = (list: Array<empData>) => {
+    setTable(list);
+  };
+
+  const contextValue: contextType = { data, updateData, table, getEmpData };
 
   return (
     <MyContext.Provider value={contextValue}>{children}</MyContext.Provider>

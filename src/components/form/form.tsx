@@ -37,7 +37,7 @@ import * as Yup from "yup";
 
 const addForm = "add-form";
 const editForm = "edit-form";
-let SkillOptions: Array<selectOptions> = [];
+export let SkillOptions: Array<selectOptions> = [];
 
 const validationSchema = Yup.object({
   fullName: Yup.string().max(50, "Too Long!").required("Required field"),
@@ -51,7 +51,7 @@ interface FormProps {
   formtype: "add-form" | "edit-form";
 }
 
-interface myObj {
+export interface myObj {
   fullName: string | undefined;
   dateOfJoining: string | undefined;
   dateOfBirth: string | undefined;
@@ -66,7 +66,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const { updateData } = useMyContext();
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
   const [emp, setEmp] = useState<iEmployee>();
-  console.log("Emp is here", emp);
+  // console.log("Emp is here", emp);
   const [initialvalues, setInitialvalues] = useState<myObj>({
     fullName: "",
     dateOfJoining: "",
@@ -101,15 +101,19 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   );
 
   // fetching options for skill dropdown
-  getData(`/skills`).then((skillObj) => {
-    let temp = skillObj.data.data;
-    SkillOptions = temp.map(({ skill, id }: { skill: string; id: number }) => ({
-      label: skill,
-      value: id,
-    }));
+  useEffect(() => {
+    getData(`/skills`).then((skillObj) => {
+      let temp = skillObj.data.data;
+      SkillOptions = temp.map(
+        ({ skill, id }: { skill: string; id: number }) => ({
+          label: skill,
+          value: id,
+        })
+      );
 
-    console.log("skillopts", SkillOptions);
-  });
+      console.log("skillopts", SkillOptions);
+    });
+  }, []);
 
   //get employee to fill in edit form
   function getEmployee(fetchID: number) {
@@ -117,8 +121,8 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
 
     getData(`/employee/${fetchID}`)
       .then((response) => {
-        // emp = response.data.data;
-        setEmp(response.data.data);
+        let temp = response.data.data;
+        setEmp(temp);
         console.log("Emp is here", emp);
         console.log("response", response);
       })

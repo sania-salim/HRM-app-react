@@ -50,8 +50,8 @@ export function Select({ value, onChange, options, multiple }: selectProps) {
         tabIndex={0}
         className="container"
         onBlur={() => setIsOpen(false)}
-        onFocus={() => {
-          setIsOpen((prev) => true);
+        onClick={() => {
+          setIsOpen((prev) => !prev);
         }}
       >
         <span className="value">

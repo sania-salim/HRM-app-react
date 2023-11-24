@@ -57,7 +57,7 @@ export const employeeList = [
   },
 ];
 
-export const SkillOptions = [
+const SkillOptions = [
   { label: "HTML", value: "1" },
   { label: "CSS", value: "2" },
   { label: "React", value: "3" },
