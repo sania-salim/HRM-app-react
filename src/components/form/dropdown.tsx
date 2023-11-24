@@ -32,7 +32,6 @@ export function Select({ value, onChange, options, multiple }: selectProps) {
     if (multiple) {
       if (!value.includes(option)) {
         onChange?.([...value, option]);
-        console.log("in selectoption", value);
       } else {
         onChange?.(value.filter((o) => o !== option));
       }
@@ -51,8 +50,8 @@ export function Select({ value, onChange, options, multiple }: selectProps) {
         tabIndex={0}
         className="container"
         onBlur={() => setIsOpen(false)}
-        onClick={() => {
-          setIsOpen((prev) => !prev);
+        onFocus={() => {
+          setIsOpen((prev) => true);
         }}
       >
         <span className="value">
