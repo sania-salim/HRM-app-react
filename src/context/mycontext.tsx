@@ -13,6 +13,7 @@ export interface empData {
   dob: string;
   email: string;
   designation: string;
+  skills: Array<{ id: number; skill: string }>;
 }
 
 interface contextType {
@@ -20,6 +21,10 @@ interface contextType {
   updateData: (newData: Partial<propData>) => void;
   table: Array<empData> | undefined;
   getEmpData: (list: Array<empData>) => void;
+  sortOrder: "asc" | "desc";
+  setSortOrder: React.Dispatch<React.SetStateAction<"asc" | "desc">>;
+  pageOffset: number;
+  setPageOffset: React.Dispatch<React.SetStateAction<number>>;
 }
 
 // creating context with initial values
@@ -39,7 +44,22 @@ export const MyProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setTable(list);
   };
 
-  const contextValue: contextType = { data, updateData, table, getEmpData };
+  // sort
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+
+  // pagination offset
+  const [pageOffset, setPageOffset] = useState(0);
+
+  const contextValue: contextType = {
+    data,
+    updateData,
+    table,
+    getEmpData,
+    sortOrder,
+    setSortOrder,
+    pageOffset,
+    setPageOffset,
+  };
 
   return (
     <MyContext.Provider value={contextValue}>{children}</MyContext.Provider>

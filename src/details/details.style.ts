@@ -18,6 +18,6 @@ export const DetailsDivider = styled.div`
 
 export const DetailsMain = styled.div`
   display: flex;
-  gap: 100px;
+  gap: 60px;
   justify-content: center;
 `;

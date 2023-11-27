@@ -48,7 +48,11 @@ function Details() {
       <Header />
       <PageHeading>{detailsContent.pageHeading}</PageHeading>
       <DetailsMain>
-        {/* <DetailsDivider>{emp?.skills}</DetailsDivider> */}
+        <DetailsDivider className="skillchipcontainer">
+          {emp?.skills.map((v) => (
+            <div className="skillchip">{v?.skill}</div>
+          ))}
+        </DetailsDivider>
         <DetailsDivider>
           <img
             src="../../src/assets/Profile photo.png"

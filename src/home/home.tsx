@@ -5,11 +5,19 @@ import { ButtonContainer } from "../components/form/form.style.ts";
 import Button from "../components/buttons/button.tsx";
 import Popup from "../components/popup/popup.tsx";
 import { useMyContext } from "../context/mycontext.tsx";
-
 import { getData } from "../core/api/api.ts";
+import { useState } from "react";
 
 function Home() {
-  const { data } = useMyContext();
+  const { data, setPageOffset } = useMyContext();
+
+  function paginateNext() {
+    setPageOffset((prev) => prev + 10);
+  }
+
+  function paginatePrevious() {
+    setPageOffset((prev) => prev - 10);
+  }
 
   return (
     <>
@@ -22,13 +30,14 @@ function Home() {
           buttontype="regularButton"
           buttontext="Previous"
           buttonicon=""
+          onSmash={paginatePrevious}
         />
 
         <Button
           buttontype="regularButton"
           buttontext="Next"
           buttonicon=""
-          onSmash={() => getData("/employee/1")}
+          onSmash={paginateNext}
         />
       </ButtonContainer>
     </>

@@ -10,6 +10,9 @@ import { tableContent } from "../../core/config/content";
 import { getData } from "../../core/api/api";
 import { useEffect, useState } from "react";
 import { useMyContext } from "../../context/mycontext";
+import SpinnerLoader from "../loader/loader";
+import { getTableQueryAsc } from "../../core/config/constants";
+import { PaginationLimit } from "../../core/config/constants";
 // import { empData } from "../../context/mycontext";
 
 // const tempObj = employeeList;
@@ -28,16 +31,20 @@ export interface iEmployee {
 
 function Table() {
   const navigate = useNavigate();
-  const { table, getEmpData } = useMyContext();
+  const { table, getEmpData, sortOrder, pageOffset } = useMyContext();
+  const [loadState, setLoadState] = useState(true);
 
   // const [table, setTable] = useState([]);
-  useEffect(getTable, []);
+  useEffect(getTable, [sortOrder, pageOffset]);
+
+  const query = `employee?limit=${PaginationLimit}&offset=${pageOffset}&sortBy=id&sortDir=${sortOrder}`;
 
   function getTable() {
-    getData("/employee")
+    getData(query)
       .then((response) => {
         getEmpData(response.data.data.employees);
-        console.log("emp", table);
+        console.log("emp table fetched", table);
+        setLoadState(false);
       })
       .catch((err) => {
         console.log("error in getting table:", err);
@@ -62,6 +69,7 @@ function Table() {
 
   return (
     <>
+      <SpinnerLoader load={loadState} />
       <TableStyled>
         <thead>
           <TableRowStyled>

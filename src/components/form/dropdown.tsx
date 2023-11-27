@@ -9,19 +9,27 @@ type singleSelectProps = {
   multiple?: false;
   value?: selectOptions;
   onChange?: (value: selectOptions | undefined) => void;
+  isVisible?: boolean | undefined;
 };
 
 type multipleSelectProps = {
   multiple: true;
   value: selectOptions[];
   onChange?: (value: selectOptions[]) => void;
+  isVisible?: boolean | undefined;
 };
 
 type selectProps = {
   options: selectOptions[];
 } & (singleSelectProps | multipleSelectProps);
 
-export function Select({ value, onChange, options, multiple }: selectProps) {
+export function Select({
+  value,
+  onChange,
+  options,
+  multiple,
+  isVisible = true,
+}: selectProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   function clearOptions() {
@@ -45,7 +53,7 @@ export function Select({ value, onChange, options, multiple }: selectProps) {
   }
 
   return (
-    <>
+    <div className={isVisible ? "skills show" : "skills"}>
       <div
         tabIndex={0}
         className="container"
@@ -99,6 +107,6 @@ export function Select({ value, onChange, options, multiple }: selectProps) {
           ))}
         </ul>
       </div>
-    </>
+    </div>
   );
 }

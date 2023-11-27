@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://3.145.178.76:4000",
+  baseURL: "https://vipinms.cloud/",
   timeout: 120000,
 });
 

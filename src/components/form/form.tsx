@@ -57,7 +57,7 @@ export interface myObj {
   dateOfBirth: string | undefined;
   mailID: string | undefined;
   phoneNumber: string | undefined;
-  // skills: emp.skills,
+  skills?: Array<{}> | undefined;
   // workStatus: emp.workStatus,
 }
 
@@ -73,7 +73,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
     dateOfBirth: "",
     mailID: "",
     phoneNumber: "",
-    // skills: [],
+    skills: [],
     // workStatus: "",
   });
 
@@ -167,7 +167,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
         dateOfBirth: emp?.dob,
         mailID: emp?.email,
         phoneNumber: "83475692374",
-        // skills: emp.skills,
+        skills: emp?.skills,
         // workStatus: emp.workStatus,
       });
 

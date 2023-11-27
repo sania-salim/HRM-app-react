@@ -38,6 +38,14 @@ const GlobalStyle = createGlobalStyle`
   
 
   //////////////////////////////////////////////////////////////
+  .skills{
+    display:none;
+  }
+
+  .skills.show{
+    display: block;
+  }
+  
   .container{
     position:relative;
     width:230px;
@@ -130,6 +138,27 @@ const GlobalStyle = createGlobalStyle`
     color: white;
     background-color: var(--primaryDark);
     /* background-color: hsl(200,100%,70%); */
+  }
+
+  .skillchipcontainer{
+    display:flex;
+    flex:0;
+    justify-items:center;
+    align-items: end;
+    justify-content: center;
+  }
+
+  .skillchip{
+    text-align:center;
+    align-self:right;
+    display: flex;
+    max-height:min-content;
+    max-width:fit-content;
+    font-size:0.7em;
+    background-color:var(--themeGrey);
+    border-radius:8px;
+    padding: 1px 4px ;
+
   }
 `;
 

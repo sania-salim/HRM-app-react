@@ -30,4 +30,5 @@ export const SearchInput = styled.input`
   padding-left: 5px;
   outline: none;
   width: 250px;
+  background-color: var(--themeGrey);
 `;

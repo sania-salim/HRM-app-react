@@ -1,3 +1,7 @@
+export const PaginationLimit = 10;
+
+export const getTableQueryAsc = `employee?limit=${PaginationLimit}&offset=0&sortBy=id&sortDir=asc`;
+
 export const employeeList = [
   {
     id: 1,
