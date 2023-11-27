@@ -51,6 +51,7 @@ interface FormProps {
   formtype: "add-form" | "edit-form";
 }
 
+// interface in client side format
 export interface myObj {
   fullName: string | undefined;
   dateOfJoining: string | undefined;
@@ -66,7 +67,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const { updateData } = useMyContext();
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
   const [emp, setEmp] = useState<iEmployee>();
-  // console.log("Emp is here", emp);
+
   const [initialvalues, setInitialvalues] = useState<myObj>({
     fullName: "",
     dateOfJoining: "",
@@ -134,17 +135,13 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   //employee delete function
 
   function deleteEmployee(fetchID: number) {
-    // const updatedEmployeeList = employeeList.filter(
-    //   (employee) => employee.id !== fetchID
+    // const EmpIndex = employeeList.findIndex(
+    //   (employee) => employee.id === fetchID
     // );
 
-    const EmpIndex = employeeList.findIndex(
-      (employee) => employee.id === fetchID
-    );
-
-    if (EmpIndex != -1) {
-      employeeList.splice(EmpIndex, 1);
-    }
+    // if (EmpIndex != -1) {
+    //   employeeList.splice(EmpIndex, 1);
+    // }
 
     setOpenConfirm(true);
   }
