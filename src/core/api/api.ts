@@ -12,3 +12,7 @@ export const getData = (url: string) => {
 export const postData = (url: string, payload: object) => {
   return api.post(url, payload);
 };
+
+export const deleteData = (url: string) => {
+  return api.delete(url);
+};

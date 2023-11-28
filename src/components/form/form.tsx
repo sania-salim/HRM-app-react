@@ -15,28 +15,21 @@ import { Link, useNavigate } from "react-router-dom";
 import { formContent } from "../../core/config/content.ts";
 import { Confirm } from "../confirmation/confirm.tsx";
 import { postData } from "../../core/api/api.ts";
-
 import { Select, selectOptions } from "./dropdown.tsx";
-
 import {
-  employeeList,
   WorkOptions,
   LocationOptions,
   DesignationOptions,
 } from "../../core/config/constants.ts";
-
-// import Popup from "../popup/popup.tsx";
 import { useMyContext } from "../../context/mycontext.tsx";
 import { iEmployee } from "../table/table.tsx";
 import { getData } from "../../core/api/api.ts";
-
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-// import { selectedSkills } from "./custom-select.tsx";
-
 const addForm = "add-form";
 const editForm = "edit-form";
+
 export let SkillOptions: Array<selectOptions> = [];
 
 const validationSchema = Yup.object({
@@ -79,7 +72,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   });
 
   let fetchID = 0;
-  // let emp: iEmployee;
 
   useEffect(() => {
     getEmployee(fetchID);
@@ -111,21 +103,16 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           value: id,
         })
       );
-
-      console.log("skillopts", SkillOptions);
     });
   }, []);
 
   //get employee to fill in edit form
   function getEmployee(fetchID: number) {
-    console.log("im inside fetch employee function in edit form");
-
     getData(`/employee/${fetchID}`)
       .then((response) => {
         let temp = response.data.data;
         setEmp(temp);
         console.log("Emp is here", emp);
-        console.log("response", response);
       })
       .catch((err) => {
         console.log("error in getting table:", err);
@@ -133,25 +120,13 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   }
 
   //employee delete function
-
-  function deleteEmployee(fetchID: number) {
-    // const EmpIndex = employeeList.findIndex(
-    //   (employee) => employee.id === fetchID
-    // );
-
-    // if (EmpIndex != -1) {
-    //   employeeList.splice(EmpIndex, 1);
-    // }
-
+  function deleteEmployee() {
     setOpenConfirm(true);
   }
 
+  // getting initial values
   useEffect(() => {
-    console.log("inside use effect to set initial value");
-
     if (formtype === editForm) {
-      console.log("we are not doomed");
-
       const currentURL = window.location.href;
       const url = new URL(currentURL);
       const path = url.pathname;
@@ -198,7 +173,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           .catch((err) => {
             console.log("error in posting new employee", err);
           });
-        console.log("im in add form submission");
+
         updateData({ name: newEntry.firstName, message: "has been added" });
         navigate("/");
       } else if (formtype === editForm) {
@@ -221,6 +196,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           <Confirm
             confirm={openConfirm}
             name={formik.values.fullName}
+            id={emp?.id}
           ></Confirm>
         ) : (
           ""
@@ -356,15 +332,18 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
         </InnerFormContainer>
       </OuterFormContainer>
       <ButtonContainer>
-        <Link to="/">
-          <Button buttontype="regularButton" buttontext="Cancel" />
-        </Link>
+        <Button
+          buttontype="regularButton"
+          buttontext="Cancel"
+          onSmash={() => navigate(-1)}
+        />
+
         {formtype === editForm ? (
           <Button
             buttontype="deleteButton"
             buttontext="Delete"
             buttonicon=""
-            onSmash={() => deleteEmployee(2)}
+            onSmash={() => deleteEmployee()}
           />
         ) : (
           ""
