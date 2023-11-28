@@ -14,6 +14,7 @@ export interface empData {
   email: string;
   designation: string;
   skills: Array<{ id: number; skill: string }>;
+  moreDetails: string | undefined;
 }
 
 interface contextType {

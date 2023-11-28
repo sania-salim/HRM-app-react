@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 function Details() {
   const navigate = useNavigate();
   const [emp, setEmp] = useState<iEmployee>();
+  console.log("Emp", emp);
 
   useEffect(getEmployee, []);
 
@@ -31,12 +32,9 @@ function Details() {
   // getEmployee();
 
   function getEmployee() {
-    console.log("im inside fetch employee function");
-
     getData(`/employee/${empID}`)
       .then((response) => {
         setEmp(response.data.data);
-        console.log("Emp", emp);
       })
       .catch((err) => {
         console.log("error in getting table:", err);

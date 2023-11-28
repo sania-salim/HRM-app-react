@@ -74,12 +74,23 @@ export const WorkOptions = [
   { label: "Work from home", value: "2" },
 ];
 
+// export const LocationOptions = [
+//   { label: "Ganga TP-3", value: "1" },
+//   { label: "Lulu Cyber Tower", value: "2" },
+//   { label: "Artech Magnet Vazhuthacaud", value: "3" },
+//   { label: "UL Cyber Park Calicut", value: "4" },
+//   { label: "Nisagandhi, Infopark Koratty", value: "5" },
+// ];
+
 export const LocationOptions = [
-  { label: "Ganga TP-3", value: "1" },
-  { label: "Lulu Cyber Tower", value: "2" },
-  { label: "Artech Magnet Vazhuthacaud", value: "3" },
-  { label: "UL Cyber Park Calicut", value: "4" },
-  { label: "Nisagandhi, Infopark Koratty", value: "5" },
+  { value: "1", label: "Trivandrum" },
+  { value: "2", label: "Vazhuthacaud" },
+  { value: "3", label: "Cochin" },
+  { value: "4", label: "Calicut" },
+  { value: "5", label: "Noida" },
+  { value: "6", label: "Bangalore" },
+  { value: "7", label: "Koratty" },
+  { value: "8", label: "Chennai" },
 ];
 
 export const DesignationOptions = [

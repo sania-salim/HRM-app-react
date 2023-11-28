@@ -19,32 +19,40 @@ function Tools() {
   const [valueMultipleSkill, setValueMultipleSkill] = useState<selectOptions[]>(
     []
   );
-
-  // const [filter, setFilter] = useState([]);
-
+  const [SkillOptions, setSkillOptions] = useState([]);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
 
-  let SkillOptions: selectOptions[] = [];
+  const offset = 0;
+  const query = `employee?limit=${PaginationLimit}&offset=${offset}&sortBy=id&sortDir=${sortOrder}`;
 
   // fetching options for skill dropdown
   useEffect(() => {
     getData(`/skills`).then((skillObj) => {
       let temp = skillObj.data.data;
-      SkillOptions = temp.map(
+      const skills = temp.map(
         ({ skill, id }: { skill: string; id: number }) => ({
           label: skill,
           value: id,
         })
       );
-
-      console.log("skillopts", SkillOptions);
+      setSkillOptions(skills);
     });
   }, []);
 
   // filter function
   useEffect(() => {
-    if (valueMultipleSkill) {
+    if (valueMultipleSkill.length != 0) {
       filterBySkill(valueMultipleSkill);
+    } else {
+      getData(query)
+        .then((response) => {
+          getEmpData(response.data.data.employees);
+          console.log("emp table fetched", table);
+          // setLoadState(false);
+        })
+        .catch((err) => {
+          console.log("error in getting table:", err);
+        });
     }
   }, [valueMultipleSkill]);
 
@@ -76,19 +84,11 @@ function Tools() {
     }
   }
 
-  const offset = 0;
-  const query = `employee?limit=${PaginationLimit}&offset=${offset}&sortBy=id&sortDir=${sortOrder}`;
-
   // search function
   function promptSearch(name: string) {
-    const prompt = name.toLowerCase();
-    const searchResult = table?.filter((employee: empData) => {
-      return employee.firstName.toLocaleLowerCase().startsWith(prompt);
-    });
+    if (!name) {
+      console.log("querying because search is empty, prompt:", prompt);
 
-    if (searchResult) {
-      getEmpData(searchResult);
-    } else {
       getData(query)
         .then((response) => {
           getEmpData(response.data.data.employees);
@@ -98,7 +98,30 @@ function Tools() {
         .catch((err) => {
           console.log("error in getting table:", err);
         });
+    } else {
+      console.log("showing results of search");
+
+      const prompt = name.toLowerCase();
+      const searchResult = table?.filter((employee: empData) => {
+        return employee.firstName.toLocaleLowerCase().startsWith(prompt);
+      });
+
+      if (searchResult) {
+        getEmpData(searchResult);
+      }
     }
+
+    // } else {
+    //   getData(query)
+    //     .then((response) => {
+    //       getEmpData(response.data.data.employees);
+    //       console.log("emp table fetched", table);
+    //       // setLoadState(false);
+    //     })
+    //     .catch((err) => {
+    //       console.log("error in getting table:", err);
+    //     });
+    // }
   }
 
   return (

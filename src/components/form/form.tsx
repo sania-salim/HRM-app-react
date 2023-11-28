@@ -11,10 +11,10 @@ import {
 } from "./form.style.ts";
 import Button from "../buttons/button.tsx";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { formContent } from "../../core/config/content.ts";
 import { Confirm } from "../confirmation/confirm.tsx";
-import { postData } from "../../core/api/api.ts";
+import { postData, getData } from "../../core/api/api.ts";
 import { Select, selectOptions } from "./dropdown.tsx";
 import {
   WorkOptions,
@@ -23,7 +23,6 @@ import {
 } from "../../core/config/constants.ts";
 import { useMyContext } from "../../context/mycontext.tsx";
 import { iEmployee } from "../table/table.tsx";
-import { getData } from "../../core/api/api.ts";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -47,19 +46,20 @@ interface FormProps {
 // interface in client side format
 export interface myObj {
   fullName: string | undefined;
-  dateOfJoining: string | undefined;
-  dateOfBirth: string | undefined;
+  dateOfJoining?: string | undefined;
+  dateOfBirth?: string | undefined;
   mailID: string | undefined;
-  phoneNumber: string | undefined;
+  phoneNumber?: string | undefined;
   skills?: Array<{}> | undefined;
-  // workStatus: emp.workStatus,
+  workStatus?: string | undefined;
 }
 
 const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
-  const navigate = useNavigate();
   const { updateData } = useMyContext();
-  const [openConfirm, setOpenConfirm] = useState<boolean>(false);
   const [emp, setEmp] = useState<iEmployee>();
+  console.log("Emp is here", emp);
+  const [openConfirm, setOpenConfirm] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const [initialvalues, setInitialvalues] = useState<myObj>({
     fullName: "",
@@ -111,8 +111,8 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
     getData(`/employee/${fetchID}`)
       .then((response) => {
         let temp = response.data.data;
+        console.log(temp);
         setEmp(temp);
-        console.log("Emp is here", emp);
       })
       .catch((err) => {
         console.log("error in getting table:", err);
