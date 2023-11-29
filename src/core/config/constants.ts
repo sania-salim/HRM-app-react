@@ -61,14 +61,6 @@ export const employeeList = [
   },
 ];
 
-const SkillOptions = [
-  { label: "HTML", value: "1" },
-  { label: "CSS", value: "2" },
-  { label: "React", value: "3" },
-  { label: "Node", value: "4" },
-  { label: "Angular", value: "5" },
-];
-
 export const WorkOptions = [
   { label: "Office", value: "1" },
   { label: "Work from home", value: "2" },

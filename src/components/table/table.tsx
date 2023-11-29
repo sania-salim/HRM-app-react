@@ -11,7 +11,7 @@ import { getData } from "../../core/api/api";
 import { useEffect, useState } from "react";
 import { useMyContext } from "../../context/mycontext";
 import SpinnerLoader from "../loader/loader";
-import { getTableQueryAsc } from "../../core/config/constants";
+// import { getTableQueryAsc } from "../../core/config/constants";
 import { PaginationLimit } from "../../core/config/constants";
 // import { empData } from "../../context/mycontext";
 
@@ -97,10 +97,10 @@ function Table() {
               <TableDataStyled>{item.designation}</TableDataStyled>
               <TableDataStyled>{item.email}</TableDataStyled>
               <TableDataStyled>
-                <img src="src/assets/work-from-home.svg" alt="" />
+                <img src="../src/assets/work-from-home.svg" alt="" />
               </TableDataStyled>
               <TableDataStyled>
-                <img src="src/assets/edit button violet.svg" alt="" />
+                <img src="../src/assets/edit button violet.svg" alt="" />
               </TableDataStyled>
             </TableRowStyled>
           ))}

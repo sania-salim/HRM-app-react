@@ -3,6 +3,7 @@ import Home from "../../home/home.tsx";
 import Details from "../../details/details.tsx";
 import AddUser from "/home/sania/React Assignment/hrm-app/src/add user/add-user.tsx";
 import EditUser from "/home/sania/React Assignment/hrm-app/src/edit user/edit-user.tsx";
+import ErrorPage from "../../error/error.tsx";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/edit/:id",
     element: <EditUser></EditUser>,
+  },
+  {
+    path: "*",
+    element: <ErrorPage></ErrorPage>,
   },
 ]);
 

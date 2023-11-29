@@ -12,6 +12,7 @@ import { Select } from "../form/dropdown.tsx";
 import { useMyContext, empData } from "../../context/mycontext.tsx";
 import { selectOptions } from "../form/dropdown.tsx";
 import { getData } from "../../core/api/api.ts";
+import filterIcon from "../../assets/images/filterViolet.svg";
 import { PaginationLimit } from "../../core/config/constants.ts";
 
 function Tools() {
@@ -130,7 +131,7 @@ function Tools() {
         <Button
           buttontype="iconButton"
           buttontext="Add employee"
-          buttonicon="src/assets/add.svg"
+          buttonicon="../src/assets/add.svg"
         />
       </Link>
 
@@ -143,10 +144,10 @@ function Tools() {
           />
           <img src="src/assets/search violet.svg" alt="" />
         </SearchContainer>
-        <img src="src/assets/sort violet.svg" alt="" onClick={changeSort} />
+        <img src="src/assets/sortViolet.svg" alt="" onClick={changeSort} />
         <>
           <img
-            src="src/assets/filter violet.svg"
+            src={filterIcon}
             alt=""
             className="filtericon"
             onClick={() => setIsSelectOpen(!isSelectOpen)}

@@ -13,6 +13,10 @@ export const postData = (url: string, payload: object) => {
   return api.post(url, payload);
 };
 
+export const editData = (url: string, payload: object) => {
+  return api.patch(url, payload);
+};
+
 export const deleteData = (url: string) => {
   return api.delete(url);
 };

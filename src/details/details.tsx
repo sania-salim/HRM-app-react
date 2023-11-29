@@ -3,16 +3,21 @@ import Button from "../components/buttons/button.js";
 import { ButtonContainer, PageHeading } from "../components/form/form.style.js";
 import { DetailsDivider, DetailsMain } from "./details.style.js";
 import { detailsContent } from "../core/config/content.js";
-// import { employeeList } from "../core/config/constants.js";
 import { Link, useNavigate } from "react-router-dom";
 import { getData } from "../core/api/api.js";
-import { iEmployee } from "../components/table/table.js";
 import { useEffect, useState } from "react";
+import { empData } from "../context/mycontext.js";
+
+interface moreDetails {
+  photoId: string | undefined;
+}
 
 function Details() {
   const navigate = useNavigate();
-  const [emp, setEmp] = useState<iEmployee>();
-  console.log("Emp", emp);
+  const [emp, setEmp] = useState<empData>();
+  const [moreDetails, setMoreDetails] = useState<moreDetails>();
+
+  console.log("rendering");
 
   useEffect(getEmployee, []);
 
@@ -35,6 +40,11 @@ function Details() {
     getData(`/employee/${empID}`)
       .then((response) => {
         setEmp(response.data.data);
+        if (emp && emp.moreDetails) {
+          console.log("inside if condition");
+          let temp = JSON.parse(emp.moreDetails);
+          setMoreDetails(temp);
+        }
       })
       .catch((err) => {
         console.log("error in getting table:", err);
@@ -47,13 +57,17 @@ function Details() {
       <PageHeading>{detailsContent.pageHeading}</PageHeading>
       <DetailsMain>
         <DetailsDivider className="skillchipcontainer">
-          {emp?.skills.map((v) => (
+          {emp?.skills.map((v: any) => (
             <div className="skillchip">{v?.skill}</div>
           ))}
         </DetailsDivider>
         <DetailsDivider>
           <img
-            src="../../src/assets/Profile photo.png"
+            src={
+              moreDetails?.photoId
+                ? moreDetails.photoId
+                : "../../src/assets/Profile photo.png"
+            }
             alt="placeholder/profile image"
             className="ProfilePhoto"
           />

@@ -51,7 +51,8 @@ export interface myObj {
   mailID: string | undefined;
   phoneNumber?: string | undefined;
   skills?: Array<{}> | undefined;
-  workStatus?: string | undefined;
+  // workStatus?: string | undefined;
+  moreDetails?: string | undefined;
 }
 
 const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
@@ -144,6 +145,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
       });
 
       console.log("Thank god initialvals:", initialvalues);
+      console.log("emp", emp);
     }
   }, [formtype, emp]);
 
@@ -151,6 +153,30 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
     initialValues: initialvalues,
 
     onSubmit: (values) => {
+      interface more {
+        location: string | null;
+        workStatus: string | null;
+      }
+
+      // creating object for moew details
+      let moreDetailsObject: more = {
+        location: null,
+        workStatus: null,
+      };
+
+      const moreDetails = (
+        valueSingleLocation: selectOptions | undefined,
+        valueSingleWork: selectOptions | undefined
+      ) => {
+        moreDetailsObject = {
+          location: valueSingleLocation ? valueSingleLocation.label : null,
+          workStatus: valueSingleWork ? valueSingleWork.label : null,
+        };
+        console.log(moreDetailsObject);
+      };
+
+      moreDetails(valueSingleLocation, valueSingleWork);
+
       // object to push upon submission
       const newEntry = {
         firstName: values.fullName,
@@ -159,9 +185,8 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
         dob: values.dateOfBirth,
         dateOfJoining: values.dateOfJoining,
         department: 4,
-        // skills: valueMultipleSkill,
-        // workStatus: valueSingleWork?.label,
-        // location: valueSingleLocation?.label,
+        skills: valueMultipleSkill,
+        moreDetails: moreDetailsObject,
       };
 
       if (formtype === addForm) {
@@ -177,16 +202,15 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
         updateData({ name: newEntry.firstName, message: "has been added" });
         navigate("/");
       } else if (formtype === editForm) {
-        // deleteEmployee(newEntry.id);
-        // employeeList.push(newEntry);
-        //popup
-        postData("/employee", newEntry);
+        // editData("/employee", newEntry);
         // updateData({ name: newEntry.name, message: "has been edited" });
         navigate("/");
       }
     },
 
     validationSchema,
+
+    enableReinitialize: true,
   });
 
   return (

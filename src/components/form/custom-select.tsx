@@ -6,7 +6,6 @@ import {
   InputHalfStyled,
   CustomSelectContainer,
 } from "./form.style.ts";
-import { customSelect } from "../../core/config/content.ts";
 
 const SelectOptions = [
   { label: "HTML", value: 0 },

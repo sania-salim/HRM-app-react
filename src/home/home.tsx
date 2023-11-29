@@ -5,8 +5,6 @@ import { ButtonContainer } from "../components/form/form.style.ts";
 import Button from "../components/buttons/button.tsx";
 import Popup from "../components/popup/popup.tsx";
 import { useMyContext } from "../context/mycontext.tsx";
-import { getData } from "../core/api/api.ts";
-import { useState } from "react";
 
 function Home() {
   const { data, setPageOffset } = useMyContext();
