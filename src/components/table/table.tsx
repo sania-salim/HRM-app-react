@@ -14,6 +14,8 @@ import SpinnerLoader from "../loader/loader";
 // import { getTableQueryAsc } from "../../core/config/constants";
 import { PaginationLimit } from "../../core/config/constants";
 // import { empData } from "../../context/mycontext";
+import editIcon from "../../assets/edit button violet.svg";
+import wfhIcon from "../../assets/work-from-home.svg";
 
 // const tempObj = employeeList;
 
@@ -97,10 +99,10 @@ function Table() {
               <TableDataStyled>{item.designation}</TableDataStyled>
               <TableDataStyled>{item.email}</TableDataStyled>
               <TableDataStyled>
-                <img src="../src/assets/work-from-home.svg" alt="" />
+                <img src={wfhIcon} alt="" />
               </TableDataStyled>
               <TableDataStyled>
-                <img src="../src/assets/edit button violet.svg" alt="" />
+                <img src={editIcon} alt="" />
               </TableDataStyled>
             </TableRowStyled>
           ))}

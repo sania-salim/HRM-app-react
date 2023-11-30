@@ -52,6 +52,12 @@ export const ButtonContainer = styled.div`
   margin: 60px 0 30px 0;
 `;
 
+// input for profile photo
+
+export const ProfilePhotoInput = styled.input`
+  display: none;
+`;
+
 //////////// elements for custom dropdown ///////////
 export const DropDownUl = styled.ul`
   transition: 0.25s ease;

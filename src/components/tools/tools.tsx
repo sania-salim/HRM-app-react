@@ -13,7 +13,10 @@ import { useMyContext, empData } from "../../context/mycontext.tsx";
 import { selectOptions } from "../form/dropdown.tsx";
 import { getData } from "../../core/api/api.ts";
 import filterIcon from "../../assets/images/filterViolet.svg";
+import sortIcon from "../../assets/sortViolet.svg";
+import searchIcon from "../../assets/search violet.svg";
 import { PaginationLimit } from "../../core/config/constants.ts";
+import addEmployeeIcon from "../../assets/add.svg";
 
 function Tools() {
   const { table, getEmpData, sortOrder, setSortOrder } = useMyContext();
@@ -111,18 +114,6 @@ function Tools() {
         getEmpData(searchResult);
       }
     }
-
-    // } else {
-    //   getData(query)
-    //     .then((response) => {
-    //       getEmpData(response.data.data.employees);
-    //       console.log("emp table fetched", table);
-    //       // setLoadState(false);
-    //     })
-    //     .catch((err) => {
-    //       console.log("error in getting table:", err);
-    //     });
-    // }
   }
 
   return (
@@ -131,7 +122,7 @@ function Tools() {
         <Button
           buttontype="iconButton"
           buttontext="Add employee"
-          buttonicon="../src/assets/add.svg"
+          buttonicon={addEmployeeIcon}
         />
       </Link>
 
@@ -142,9 +133,9 @@ function Tools() {
             placeholder="Search by name..."
             onChange={(event) => promptSearch(event.target.value)}
           />
-          <img src="src/assets/search violet.svg" alt="" />
+          <img src={searchIcon} alt="" />
         </SearchContainer>
-        <img src="src/assets/sortViolet.svg" alt="" onClick={changeSort} />
+        <img src={sortIcon} alt="" onClick={changeSort} />
         <>
           <img
             src={filterIcon}

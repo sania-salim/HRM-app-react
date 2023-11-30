@@ -7,19 +7,32 @@ import { Link, useNavigate } from "react-router-dom";
 import { getData } from "../core/api/api.js";
 import { useEffect, useState } from "react";
 import { empData } from "../context/mycontext.js";
+import mailIcon from "../assets/mail.svg";
+import phoneIcon from "../assets/phone number.svg";
+import locationIcon from "../assets/location.svg";
+import placeHolderImage from "../assets/Profile photo.png";
 
-interface moreDetails {
-  photoId: string | undefined;
+export interface moreDetails {
+  photoId?: string | undefined;
+  location?: string | undefined;
 }
 
 function Details() {
   const navigate = useNavigate();
   const [emp, setEmp] = useState<empData>();
-  const [moreDetails, setMoreDetails] = useState<moreDetails>();
+  // const [moreDetails, setMoreDetails] = useState<moreDetails>();
+  const [photo, setPhoto] = useState<string | undefined>();
 
-  console.log("rendering");
+  useEffect(() => {
+    if (!emp) {
+      console.log("fetching employee details");
+      getEmployee();
+    }
+  }, []);
 
-  useEffect(getEmployee, []);
+  console.log("rendering", emp);
+
+  let extraFields: moreDetails = { location: "", photoId: "" };
 
   function navigateToPage(id: number) {
     navigate(`/edit/${id}`);
@@ -32,23 +45,27 @@ function Details() {
   const fetchID = Number(segments[segments.length - 1]);
   const empID = fetchID + 1;
 
-  // let emp = employeeList[fetchID];
-
-  // getEmployee();
-
   function getEmployee() {
     getData(`/employee/${empID}`)
       .then((response) => {
         setEmp(response.data.data);
-        if (emp && emp.moreDetails) {
-          console.log("inside if condition");
-          let temp = JSON.parse(emp.moreDetails);
-          setMoreDetails(temp);
-        }
       })
       .catch((err) => {
         console.log("error in getting table:", err);
       });
+  }
+
+  if (emp && emp.moreDetails && !photo) {
+    console.log("inside if condition");
+    try {
+      extraFields = JSON.parse(emp.moreDetails);
+    } catch {
+      console.log("in catch block");
+    } finally {
+      if (extraFields.photoId) {
+        setPhoto(extraFields.photoId);
+      }
+    }
   }
 
   return (
@@ -63,11 +80,7 @@ function Details() {
         </DetailsDivider>
         <DetailsDivider>
           <img
-            src={
-              moreDetails?.photoId
-                ? moreDetails.photoId
-                : "../../src/assets/Profile photo.png"
-            }
+            src={photo ? photo : placeHolderImage}
             alt="placeholder/profile image"
             className="ProfilePhoto"
           />
@@ -76,11 +89,11 @@ function Details() {
           <h3>{emp ? emp.firstName : null}</h3>
           <p>{emp ? emp.designation : null}</p>
           <div>
-            <img src="../../src/assets/mail.svg" alt="" />
+            <img src={mailIcon} alt="" />
             <p>{emp ? emp.email : null}</p>
           </div>
           <div>
-            <img src="../../src/assets/phone number.svg" alt="" />
+            <img src={phoneIcon} alt="" />
             {/* <p>{emp ? emp.phone : null}7895789468</p> */}
             <p>7895789468</p>
           </div>
@@ -94,8 +107,8 @@ function Details() {
             {emp ? emp.dob : null}
           </p>
           <div>
-            <img src="../../src/assets/location.svg" alt="" />
-            <p>{detailsContent.employeeLocation}</p>
+            <img src={locationIcon} alt="" />
+            <p>{extraFields.location ? extraFields.location : "--"}</p>
           </div>
         </DetailsDivider>
       </DetailsMain>

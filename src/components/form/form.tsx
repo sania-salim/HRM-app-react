@@ -8,7 +8,9 @@ import {
   OuterFormContainer,
   ValidationError,
   ButtonContainer,
+  ProfilePhotoInput,
 } from "./form.style.ts";
+
 import Button from "../buttons/button.tsx";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -21,10 +23,18 @@ import {
   LocationOptions,
   DesignationOptions,
 } from "../../core/config/constants.ts";
+
 import { useMyContext } from "../../context/mycontext.tsx";
-import { iEmployee } from "../table/table.tsx";
+// import { iEmployee } from "../table/table.tsx";
+import { empData } from "../../context/mycontext.tsx";
+import { moreDetails } from "../../details/details.tsx";
+
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import placeHolderImage from "../../assets/Profile photo.png";
+
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../../core/firebase.tsx";
 
 const addForm = "add-form";
 const editForm = "edit-form";
@@ -57,10 +67,14 @@ export interface myObj {
 
 const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const { updateData } = useMyContext();
-  const [emp, setEmp] = useState<iEmployee>();
-  console.log("Emp is here", emp);
+  const [emp, setEmp] = useState<empData>();
+  const [photo, setPhoto] = useState<string | undefined>();
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  // const [imageUpload, setImageUpload] = useState(null);
+
+  console.log("rendering");
 
   const [initialvalues, setInitialvalues] = useState<myObj>({
     fullName: "",
@@ -73,6 +87,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   });
 
   let fetchID = 0;
+  let extraFields: moreDetails = { location: "", photoId: "" };
 
   useEffect(() => {
     getEmployee(fetchID);
@@ -112,7 +127,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
     getData(`/employee/${fetchID}`)
       .then((response) => {
         let temp = response.data.data;
-        console.log(temp);
         setEmp(temp);
       })
       .catch((err) => {
@@ -120,9 +134,49 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
       });
   }
 
+  if (emp && emp.moreDetails && !photo) {
+    try {
+      extraFields = JSON.parse(emp.moreDetails);
+    } catch {
+      console.log("in catch block");
+    } finally {
+      if (extraFields.photoId) {
+        setPhoto(extraFields.photoId);
+      }
+    }
+  }
+
   //employee delete function
   function deleteEmployee() {
     setOpenConfirm(true);
+  }
+
+  // image handler, convert to URL
+  // function handleImageChange(e: any) {
+  //   const image = e.target.files[0];
+
+  //   if (image) {
+  //     const reader = new FileReader();
+
+  //     reader.onload = (readerEvent) => {
+  //       const imageDataURL = readerEvent.target?.result;
+  //       setPhoto(imageDataURL?.toString());
+  //     };
+  //     reader.readAsDataURL(image);
+  //   }
+  // }
+
+  //image handling firebase
+  function handleImageChange(e: any) {
+    const image = e.target.files[0];
+
+    if (image) {
+      const imageRef = ref(storage, `images/${image.name}`);
+      uploadBytes(imageRef, image).then((response) => {
+        console.log("uploaded image to firebase storage", response);
+        getDownloadURL(response.ref).then((url) => setPhoto(url));
+      });
+    }
   }
 
   // getting initial values
@@ -143,9 +197,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
         skills: emp?.skills,
         // workStatus: emp.workStatus,
       });
-
-      console.log("Thank god initialvals:", initialvalues);
-      console.log("emp", emp);
     }
   }, [formtype, emp]);
 
@@ -172,7 +223,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           location: valueSingleLocation ? valueSingleLocation.label : null,
           workStatus: valueSingleWork ? valueSingleWork.label : null,
         };
-        console.log(moreDetailsObject);
       };
 
       moreDetails(valueSingleLocation, valueSingleWork);
@@ -226,11 +276,19 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           ""
         )}
 
-        <img
-          src="../../src/assets/Profile photo.png"
-          alt="placeholder/profile image"
-          className="ProfilePhoto"
-        />
+        <label>
+          <img
+            src={photo ? photo : placeHolderImage}
+            alt="placeholder/profile image"
+            className="ProfilePhoto"
+          />
+          <ProfilePhotoInput
+            type="file"
+            accept="image/png, image/jpeg"
+            onChange={(event) => handleImageChange(event)}
+          />
+        </label>
+
         <InnerFormContainer>
           <h3>{formContent.formHeading}</h3>
           <FormFieldDivider>

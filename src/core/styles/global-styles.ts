@@ -104,7 +104,7 @@ const GlobalStyle = createGlobalStyle`
     padding:0;
     list-style:none;
     display:none;
-    max-height:15em;
+    max-height:10em;
     overflow-y:auto;
     border:0.05em solid var(--selection);;
     border-radius: 0.25em;
@@ -142,9 +142,10 @@ const GlobalStyle = createGlobalStyle`
 
   .skillchipcontainer{
     display:flex;
+    flex-wrap:wrap;
     flex:0;
     justify-items:center;
-    align-items: end;
+    align-items: flex-end;
     justify-content: center;
   }
 
