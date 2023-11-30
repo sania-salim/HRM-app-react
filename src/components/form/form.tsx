@@ -151,21 +151,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
     setOpenConfirm(true);
   }
 
-  // image handler, convert to URL
-  // function handleImageChange(e: any) {
-  //   const image = e.target.files[0];
-
-  //   if (image) {
-  //     const reader = new FileReader();
-
-  //     reader.onload = (readerEvent) => {
-  //       const imageDataURL = readerEvent.target?.result;
-  //       setPhoto(imageDataURL?.toString());
-  //     };
-  //     reader.readAsDataURL(image);
-  //   }
-  // }
-
   //image handling firebase
   function handleImageChange(e: any) {
     const image = e.target.files[0];
