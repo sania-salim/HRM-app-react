@@ -77,11 +77,11 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   console.log("rendering");
 
   const [initialvalues, setInitialvalues] = useState<myObj>({
-    fullName: "",
-    dateOfJoining: "",
-    dateOfBirth: "",
-    mailID: "",
-    phoneNumber: "",
+    fullName: "asassa",
+    dateOfJoining: "1111-11-11",
+    dateOfBirth: "1111-11-11",
+    mailID: "asas@gmail.com",
+    phoneNumber: "1234567890",
     skills: [],
     // workStatus: "",
   });
@@ -98,7 +98,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
     selectOptions | undefined
   >(DesignationOptions[0]);
 
-  const [valueSingleLocation, setValueSingleLocationS] = useState<
+  const [valueSingleLocation, setValueSingleLocation] = useState<
     selectOptions | undefined
   >(LocationOptions[0]);
 
@@ -134,6 +134,14 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           skills: temp?.skills,
           // workStatus: emp.workStatus,
         });
+
+        setValueSingleDesignation(temp?.designation);
+        setValueMultipleSkill(temp?.skills);
+
+        const extra = JSON.parse(temp.moreDetails);
+
+        setValueSingleLocation(extra.location);
+        setValueSingleWork(extra.workStatus);
       })
       .catch((err) => {
         console.log("error in getting table:", err);
@@ -213,7 +221,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
       moredetails(valueSingleLocation, valueSingleWork);
 
       //mapping skills
-      const skillToPost = valueMultipleSkill.map((obj) => obj.value);
+      const skillToPost = valueMultipleSkill.map((obj) => Number(obj.value));
 
       // object to push upon submission
       const newEntry = {
@@ -225,36 +233,38 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
         dob: values.dateOfBirth,
         dateOfJoining: values.dateOfJoining,
         departmentId: 4,
-        roleId: 0,
+        // roleId: 0,
         // skills: valueMultipleSkill,
         skills: skillToPost,
-        moreDetails: moreDetailsObject,
+        moreDetails: JSON.stringify(moreDetailsObject),
         salary: "345345",
         address: "Back street",
       };
 
       if (formtype === addForm) {
         // employeeList.push(newEntry);
+        console.log(JSON.stringify(newEntry, null, 2));
+
         postData("/employee", newEntry)
           .then((res) => {
             console.log("done", res);
+            updateData({ name: newEntry.firstName, message: "has been added" });
+            navigate("/");
           })
           .catch((err) => {
             console.log("error in posting new employee", err);
           });
-
-        updateData({ name: newEntry.firstName, message: "has been added" });
-        navigate("/");
       } else if (formtype === editForm) {
-        console.log(fetchID);
-
         editData(`/employee/${fetchID}`, newEntry)
           .then((res) => {
             console.log(res, "response udpate");
+            updateData({
+              name: newEntry.firstName,
+              message: "has been edited",
+            });
+            navigate("/");
           })
           .catch((err) => console.log(err, "udpate error"));
-        updateData({ name: newEntry.firstName, message: "has been edited" });
-        navigate("/");
       }
     },
 
@@ -369,8 +379,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           <h3>{formContent.employmentDetailsHeading}</h3>
           <FormDivider>
             <FormFieldDivider>
-              {/* <CustomSelect></CustomSelect> */}
-              {/* Skills dropdown - multi-select */}
               <LabelForm>{formContent.skillSelectLabel}</LabelForm>
               <Select
                 multiple
@@ -407,7 +415,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
               <Select
                 options={LocationOptions}
                 value={valueSingleLocation}
-                onChange={(o) => setValueSingleLocationS(o)}
+                onChange={(o) => setValueSingleLocation(o)}
               ></Select>
             </FormFieldDivider>
           </FormDivider>
