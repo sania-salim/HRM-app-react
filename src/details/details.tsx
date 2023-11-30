@@ -43,7 +43,7 @@ function Details() {
   const path = url.pathname;
   const segments = path.split("/");
   const fetchID = Number(segments[segments.length - 1]);
-  const empID = fetchID + 1;
+  const empID = fetchID;
 
   function getEmployee() {
     getData(`/employee/${empID}`)

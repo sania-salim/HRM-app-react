@@ -16,7 +16,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { formContent } from "../../core/config/content.ts";
 import { Confirm } from "../confirmation/confirm.tsx";
-import { postData, getData } from "../../core/api/api.ts";
+import { postData, getData, editData } from "../../core/api/api.ts";
 import { Select, selectOptions } from "./dropdown.tsx";
 import {
   WorkOptions,
@@ -86,12 +86,9 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
     // workStatus: "",
   });
 
-  let fetchID = 0;
+  const [fetchID, setFetchID] = useState(0);
+  // let fetchID = 0;
   let extraFields: moreDetails = { location: "", photoId: "" };
-
-  useEffect(() => {
-    getEmployee(fetchID);
-  }, []);
 
   const [valueSingleWork, setValueSingleWork] = useState<
     selectOptions | undefined
@@ -128,6 +125,15 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
       .then((response) => {
         let temp = response.data.data;
         setEmp(temp);
+        setInitialvalues({
+          fullName: temp?.firstName,
+          dateOfJoining: temp?.dateOfJoining,
+          dateOfBirth: temp?.dob,
+          mailID: temp?.email,
+          phoneNumber: "83475692374",
+          skills: temp?.skills,
+          // workStatus: emp.workStatus,
+        });
       })
       .catch((err) => {
         console.log("error in getting table:", err);
@@ -171,57 +177,60 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
       const url = new URL(currentURL);
       const path = url.pathname;
       const segments = path.split("/");
-      fetchID = Number(segments[segments.length - 1]);
-
-      setInitialvalues({
-        fullName: emp?.firstName,
-        dateOfJoining: emp?.dateOfJoining,
-        dateOfBirth: emp?.dob,
-        mailID: emp?.email,
-        phoneNumber: "83475692374",
-        skills: emp?.skills,
-        // workStatus: emp.workStatus,
-      });
+      const id = Number(segments[segments.length - 1]);
+      getEmployee(id);
+      setFetchID(id);
     }
-  }, [formtype, emp]);
+  }, [formtype]);
 
   const formik = useFormik<myObj>({
     initialValues: initialvalues,
 
     onSubmit: (values) => {
       interface more {
-        location: string | null;
-        workStatus: string | null;
+        location?: string | null;
+        photoId?: string | null;
+        workStatus?: string | null;
       }
 
       // creating object for moew details
       let moreDetailsObject: more = {
         location: null,
         workStatus: null,
+        photoId: null,
       };
 
-      const moreDetails = (
+      const moredetails = (
         valueSingleLocation: selectOptions | undefined,
         valueSingleWork: selectOptions | undefined
       ) => {
         moreDetailsObject = {
           location: valueSingleLocation ? valueSingleLocation.label : null,
           workStatus: valueSingleWork ? valueSingleWork.label : null,
+          photoId: photo,
         };
       };
+      moredetails(valueSingleLocation, valueSingleWork);
 
-      moreDetails(valueSingleLocation, valueSingleWork);
+      //mapping skills
+      const skillToPost = valueMultipleSkill.map((obj) => obj.value);
 
       // object to push upon submission
       const newEntry = {
         firstName: values.fullName,
+        lastName: "Parker",
         email: values.mailID,
+        phone: values.phoneNumber,
         designation: valueSingleDesignation?.label,
         dob: values.dateOfBirth,
         dateOfJoining: values.dateOfJoining,
-        department: 4,
-        skills: valueMultipleSkill,
+        departmentId: 4,
+        roleId: 0,
+        // skills: valueMultipleSkill,
+        skills: skillToPost,
         moreDetails: moreDetailsObject,
+        salary: "345345",
+        address: "Back street",
       };
 
       if (formtype === addForm) {
@@ -237,8 +246,14 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
         updateData({ name: newEntry.firstName, message: "has been added" });
         navigate("/");
       } else if (formtype === editForm) {
-        // editData("/employee", newEntry);
-        // updateData({ name: newEntry.name, message: "has been edited" });
+        console.log(fetchID);
+
+        editData(`/employee/${fetchID}`, newEntry)
+          .then((res) => {
+            console.log(res, "response udpate");
+          })
+          .catch((err) => console.log(err, "udpate error"));
+        updateData({ name: newEntry.firstName, message: "has been edited" });
         navigate("/");
       }
     },

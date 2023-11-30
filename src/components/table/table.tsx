@@ -59,7 +59,7 @@ function Table() {
   ) {
     const target = e.target as HTMLElement;
 
-    const fetchId = id - 1;
+    const fetchId = id;
 
     console.log(target.tagName.toLocaleLowerCase());
     if (target.tagName.toLocaleLowerCase() === "td") {
