@@ -15,22 +15,6 @@ function Home() {
       {data.name.length === 0 ? null : <Popup name="" message="" />}
       <Tools />
       <Table></Table>
-      {/* <ButtonContainer>
-        <Button
-          buttontype="regularButton"
-          buttontext="Previous"
-          buttonicon=""
-          onSmash={paginatePrevious}
-        />
-
-        <Button
-          buttontype="regularButton"
-          buttontext="Next"
-          buttonicon=""
-          onSmash={paginateNext}
-        />
-      </ButtonContainer> */}
-
       <Pagination></Pagination>
     </>
   );

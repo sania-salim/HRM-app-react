@@ -65,8 +65,6 @@ export function Select({
         <span className="value">
           {multiple
             ? value.map((v) => {
-                console.log("im mapping", v?.label);
-
                 return (
                   <button
                     className="optionbadge"

@@ -29,7 +29,6 @@ export function CustomSelect() {
 
   function addSkill(skill: string) {
     selectedSkills.push(skill);
-    console.log("skills", selectedSkills);
   }
 
   return (
@@ -80,17 +79,12 @@ export const CustomSimpleSelect: React.FC<SelectProps> = ({
   // }
 
   function selectOption(option: string, selectList: string) {
-    console.log(listName);
-
     if (selectList === "workOptions") {
       workOptionSelected = option;
-      console.log(workOptionSelected);
     } else if (selectList === "workLocation") {
       locationOptionSelected = option;
-      console.log(locationOptionSelected);
     } else if (selectList === "designation") {
       designationSelected = option;
-      console.log(designationSelected);
     }
   }
 

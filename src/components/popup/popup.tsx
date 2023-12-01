@@ -12,12 +12,9 @@ const Popup: React.FC<popupProps> = () => {
   const { data, updateData } = useMyContext();
   const [openToast, setOpenToast] = useState<boolean>(false);
 
-  console.log("Inside popup function");
-
   function popup() {
     setOpenToast(true);
     setTimeout(() => {
-      console.log("Opening and closing function");
       setOpenToast(false);
       updateData({ name: "", message: "" });
     }, 5000);
@@ -25,10 +22,7 @@ const Popup: React.FC<popupProps> = () => {
 
   useEffect(popup, [data]);
 
-  console.log(data, "my context somewhere");
-
   const popuptext = `${data.name} has been ${data.message}`;
-  console.log(openToast);
 
   if (openToast) {
     return (

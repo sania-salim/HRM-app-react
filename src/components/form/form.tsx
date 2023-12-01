@@ -30,10 +30,12 @@ import { moreDetails } from "../../details/details.tsx";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import placeHolderImage from "../../assets/Profile photo.png";
+import placeHolderImage from "../../assets/profile placeholder.png";
 
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../core/firebase.tsx";
+
+import { skillQuery, addEmployeeQuery } from "../../core/config/constants.ts";
 
 const addForm = "add-form";
 const editForm = "edit-form";
@@ -70,14 +72,12 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  console.log("rendering");
-
   const [initialvalues, setInitialvalues] = useState<myObj>({
-    fullName: "asassa",
-    dateOfJoining: "1111-11-11",
-    dateOfBirth: "1111-11-11",
-    mailID: "asas@gmail.com",
-    phoneNumber: "1234567890",
+    fullName: "",
+    dateOfJoining: "",
+    dateOfBirth: "",
+    mailID: "",
+    phoneNumber: "",
     skills: [],
   });
 
@@ -103,7 +103,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
 
   // fetching options for skill dropdown
   useEffect(() => {
-    getData(`/skills`).then((skillObj) => {
+    getData(skillQuery).then((skillObj) => {
       let temp = skillObj.data.data;
       SkillOptions = temp.map(
         ({ skill, id }: { skill: string; id: number }) => ({
@@ -116,11 +116,9 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
 
   //get employee to fill in edit form
   function getEmployee(fetchID: number) {
-    console.log("fetching employee");
     getData(`/employee/${fetchID}`)
       .then((response) => {
         let temp = response.data.data;
-        console.log(temp);
 
         setEmp(temp);
         setInitialvalues({
@@ -181,7 +179,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
     if (image) {
       const imageRef = ref(storage, `images/${image.name}`);
       uploadBytes(imageRef, image).then((response) => {
-        console.log("uploaded image to firebase storage", response);
         getDownloadURL(response.ref).then((url) => setPhoto(url));
       });
     }
@@ -249,11 +246,9 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
 
       if (formtype === addForm) {
         // employeeList.push(newEntry);
-        console.log(JSON.stringify(newEntry, null, 2));
 
-        postData("/employee", newEntry)
-          .then((res) => {
-            console.log("done", res);
+        postData(addEmployeeQuery, newEntry)
+          .then(() => {
             updateData({ name: newEntry.firstName, message: "has been added" });
             navigate("/");
           })
@@ -270,7 +265,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
             });
             navigate("/");
           })
-          .catch((err) => console.log(err, "udpate error"));
+          .catch((err) => console.log(err, "udpate"));
       }
     },
 
@@ -306,7 +301,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
         </label>
 
         <InnerFormContainer>
-          <h3>{formContent.formHeading}</h3>
+          {/* <h3>{formContent.formHeading}</h3> */}
           <FormFieldDivider>
             <LabelForm>{formContent.fullNameLabel}</LabelForm>
             <InputFullStyled

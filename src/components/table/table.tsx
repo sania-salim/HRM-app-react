@@ -47,7 +47,7 @@ function Table() {
       .then((response) => {
         getEmpData(response.data.data.employees);
         setEmployeeCount(response.data.data.count);
-        console.log("emp table fetched", table);
+
         setLoadState(false);
       })
       .catch((err) => {
@@ -63,7 +63,6 @@ function Table() {
 
     const fetchId = id;
 
-    console.log(target.tagName.toLocaleLowerCase());
     if (target.tagName.toLocaleLowerCase() === "td") {
       navigate(`/details/${fetchId}`);
     } else if (target.tagName.toLocaleLowerCase() === "img") {

@@ -10,7 +10,7 @@ import { empData } from "../context/mycontext.js";
 import mailIcon from "../assets/mail.svg";
 import phoneIcon from "../assets/phone number.svg";
 import locationIcon from "../assets/location.svg";
-import placeHolderImage from "../assets/Profile photo.png";
+import placeHolderImage from "../assets/profile placeholder.png";
 
 export interface moreDetails {
   photoId?: string | undefined;
