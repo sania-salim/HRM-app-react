@@ -25,7 +25,6 @@ import {
 } from "../../core/config/constants.ts";
 
 import { useMyContext } from "../../context/mycontext.tsx";
-// import { iEmployee } from "../table/table.tsx";
 import { empData } from "../../context/mycontext.tsx";
 import { moreDetails } from "../../details/details.tsx";
 
@@ -61,7 +60,6 @@ export interface myObj {
   mailID: string | undefined;
   phoneNumber?: string | undefined;
   skills?: Array<{}> | undefined;
-  // workStatus?: string | undefined;
   moreDetails?: string | undefined;
 }
 
@@ -72,8 +70,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  // const [imageUpload, setImageUpload] = useState(null);
-
   console.log("rendering");
 
   const [initialvalues, setInitialvalues] = useState<myObj>({
@@ -83,11 +79,10 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
     mailID: "asas@gmail.com",
     phoneNumber: "1234567890",
     skills: [],
-    // workStatus: "",
   });
 
   const [fetchID, setFetchID] = useState(0);
-  // let fetchID = 0;
+
   let extraFields: moreDetails = { location: "", photoId: "" };
 
   const [valueSingleWork, setValueSingleWork] = useState<
@@ -121,9 +116,12 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
 
   //get employee to fill in edit form
   function getEmployee(fetchID: number) {
+    console.log("fetching employee");
     getData(`/employee/${fetchID}`)
       .then((response) => {
         let temp = response.data.data;
+        console.log(temp);
+
         setEmp(temp);
         setInitialvalues({
           fullName: temp?.firstName,
@@ -132,16 +130,27 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           mailID: temp?.email,
           phoneNumber: temp.phone,
           skills: temp?.skills,
-          // workStatus: emp.workStatus,
         });
 
-        setValueSingleDesignation(temp?.designation);
-        setValueMultipleSkill(temp?.skills);
+        // setValueSingleDesignation(temp?.designation);
+
+        setValueMultipleSkill(
+          temp?.skills.map((skill: { id: number; skill: string }) => ({
+            label: skill.skill,
+            value: skill.id,
+          }))
+        );
 
         const extra = JSON.parse(temp.moreDetails);
 
-        setValueSingleLocation(extra.location);
-        setValueSingleWork(extra.workStatus);
+        //finding and modifying object
+        const locIndex = LocationOptions.findIndex(extra.location);
+        const loc = { label: extra.location, value: locIndex };
+        setValueSingleLocation(loc);
+
+        const workIndex = WorkOptions.findIndex(extra.workStatus);
+        const work = { label: extra.workStatus, value: workIndex };
+        setValueSingleWork(work);
       })
       .catch((err) => {
         console.log("error in getting table:", err);
@@ -252,8 +261,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
             console.log("error in posting new employee", err);
           });
       } else if (formtype === editForm) {
-        console.log(fetchID);
-
         editData(`/employee/${fetchID}`, newEntry)
           .then((res) => {
             console.log(res, "response udpate");

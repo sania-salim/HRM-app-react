@@ -64,19 +64,23 @@ export function Select({
       >
         <span className="value">
           {multiple
-            ? value.map((v) => (
-                <button
-                  className="optionbadge"
-                  key={v?.value}
-                  onClick={(e) => {
-                    e.stopPropagation;
-                    selectOption(v);
-                  }}
-                >
-                  {v?.label}
-                  <span className="removebtn">&times;</span>
-                </button>
-              ))
+            ? value.map((v) => {
+                console.log("im mapping", v?.label);
+
+                return (
+                  <button
+                    className="optionbadge"
+                    key={v?.value}
+                    onClick={(e) => {
+                      e.stopPropagation;
+                      selectOption(v);
+                    }}
+                  >
+                    {v?.label}
+                    <span className="removebtn">&times;</span>
+                  </button>
+                );
+              })
             : value?.label}
         </span>
         <button

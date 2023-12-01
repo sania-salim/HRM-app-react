@@ -15,6 +15,7 @@ export const PageButton = styled.button`
   border: 2px solid var(--themeGrey);
   &:hover {
     color: white;
+    border: 2px solid var(--primaryDark);
     background-color: var(--primaryDark);
     border: 0;
   }
@@ -24,11 +25,11 @@ export const MoveButton = styled.button`
   height: 30px;
   width: 30px;
   border-radius: 3px;
-  /* background-color: var(--primaryLight); */
+  background-color: white;
   border: 0;
   box-shadow: 0;
   &:hover {
     color: white;
-    /* background-color: var(--primaryDark); */
+    background-color: var(--selection);
   }
 `;

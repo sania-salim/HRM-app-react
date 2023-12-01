@@ -39,7 +39,7 @@ const GlobalStyle = createGlobalStyle`
   .selectedPage{
     color:white;
     background-color: var(--primaryDark);
-    border:0;
+    border: 2px solid var(--primaryDark);
   }
 
   //////////////////////////////////////////////////////////////
