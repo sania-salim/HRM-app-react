@@ -26,6 +26,8 @@ interface contextType {
   setSortOrder: React.Dispatch<React.SetStateAction<"asc" | "desc">>;
   pageOffset: number;
   setPageOffset: React.Dispatch<React.SetStateAction<number>>;
+  employeeCount: number;
+  setEmployeeCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 // creating context with initial values
@@ -51,6 +53,9 @@ export const MyProvider: FC<{ children: ReactNode }> = ({ children }) => {
   // pagination offset
   const [pageOffset, setPageOffset] = useState(0);
 
+  // employee count
+  const [employeeCount, setEmployeeCount] = useState(0);
+
   const contextValue: contextType = {
     data,
     updateData,
@@ -60,6 +65,8 @@ export const MyProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setSortOrder,
     pageOffset,
     setPageOffset,
+    employeeCount,
+    setEmployeeCount,
   };
 
   return (

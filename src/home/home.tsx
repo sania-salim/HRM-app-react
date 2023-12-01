@@ -5,6 +5,7 @@ import { ButtonContainer } from "../components/form/form.style.ts";
 import Button from "../components/buttons/button.tsx";
 import Popup from "../components/popup/popup.tsx";
 import { useMyContext } from "../context/mycontext.tsx";
+import { Pagination } from "../components/pagination/pagination.tsx";
 
 function Home() {
   const { data, setPageOffset } = useMyContext();
@@ -23,7 +24,7 @@ function Home() {
       {data.name.length === 0 ? null : <Popup name="" message="" />}
       <Tools />
       <Table></Table>
-      <ButtonContainer>
+      {/* <ButtonContainer>
         <Button
           buttontype="regularButton"
           buttontext="Previous"
@@ -37,7 +38,9 @@ function Home() {
           buttonicon=""
           onSmash={paginateNext}
         />
-      </ButtonContainer>
+      </ButtonContainer> */}
+
+      <Pagination></Pagination>
     </>
   );
 }

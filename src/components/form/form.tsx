@@ -130,7 +130,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           dateOfJoining: temp?.dateOfJoining,
           dateOfBirth: temp?.dob,
           mailID: temp?.email,
-          phoneNumber: "83475692374",
+          phoneNumber: temp.phone,
           skills: temp?.skills,
           // workStatus: emp.workStatus,
         });
@@ -226,15 +226,12 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
       // object to push upon submission
       const newEntry = {
         firstName: values.fullName,
-        lastName: "Parker",
+        lastName: "",
         email: values.mailID,
         phone: values.phoneNumber,
         designation: valueSingleDesignation?.label,
         dob: values.dateOfBirth,
         dateOfJoining: values.dateOfJoining,
-        departmentId: 4,
-        // roleId: 0,
-        // skills: valueMultipleSkill,
         skills: skillToPost,
         moreDetails: JSON.stringify(moreDetailsObject),
         salary: "345345",
@@ -255,6 +252,8 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
             console.log("error in posting new employee", err);
           });
       } else if (formtype === editForm) {
+        console.log(fetchID);
+
         editData(`/employee/${fetchID}`, newEntry)
           .then((res) => {
             console.log(res, "response udpate");

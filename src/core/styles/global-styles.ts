@@ -36,6 +36,11 @@ const GlobalStyle = createGlobalStyle`
     background-color: var(--selection);
   }
   
+  .selectedPage{
+    color:white;
+    background-color: var(--primaryDark);
+    border:0;
+  }
 
   //////////////////////////////////////////////////////////////
   .skills{

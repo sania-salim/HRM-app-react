@@ -33,7 +33,8 @@ export interface iEmployee {
 
 function Table() {
   const navigate = useNavigate();
-  const { table, getEmpData, sortOrder, pageOffset } = useMyContext();
+  const { table, getEmpData, sortOrder, pageOffset, setEmployeeCount } =
+    useMyContext();
   const [loadState, setLoadState] = useState(true);
 
   // const [table, setTable] = useState([]);
@@ -45,6 +46,7 @@ function Table() {
     getData(query)
       .then((response) => {
         getEmpData(response.data.data.employees);
+        setEmployeeCount(response.data.data.count);
         console.log("emp table fetched", table);
         setLoadState(false);
       })

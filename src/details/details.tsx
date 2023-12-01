@@ -46,6 +46,8 @@ function Details() {
   const empID = fetchID;
 
   function getEmployee() {
+    console.log("getting emp");
+
     getData(`/employee/${empID}`)
       .then((response) => {
         setEmp(response.data.data);
