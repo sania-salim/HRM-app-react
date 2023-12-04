@@ -1,23 +1,21 @@
 import Table from "../components/table/table.tsx";
 import Header from "../components/header/header.tsx";
 import Tools from "../components/tools/tools.tsx";
-import { ButtonContainer } from "../components/form/form.style.ts";
-import Button from "../components/buttons/button.tsx";
+
+import Popup from "../components/popup/popup.tsx";
+import { useMyContext } from "../context/mycontext.tsx";
+import { Pagination } from "../components/pagination/pagination.tsx";
 
 function Home() {
+  const { data } = useMyContext();
+
   return (
     <>
       <Header />
-      <Tools></Tools>
+      {data.name.length === 0 ? null : <Popup name="" message="" />}
+      <Tools />
       <Table></Table>
-      <ButtonContainer>
-        <Button
-          buttontype="regularButton"
-          buttontext="Previous"
-          buttonicon=""
-        />
-        <Button buttontype="regularButton" buttontext="Next" buttonicon="" />
-      </ButtonContainer>
+      <Pagination></Pagination>
     </>
   );
 }

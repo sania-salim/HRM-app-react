@@ -4,67 +4,101 @@ import {
   TableHeaderStyled,
   TableDataStyled,
 } from "./table.style";
+import { useNavigate } from "react-router-dom";
+import { tableContent } from "../../core/config/content";
+import { getData } from "../../core/api/api";
+import { useEffect, useState } from "react";
+import { useMyContext } from "../../context/mycontext";
+import SpinnerLoader from "../loader/loader";
+import { PaginationLimit } from "../../core/config/constants";
+import editIcon from "../../assets/edit button violet.svg";
+import wfhIcon from "../../assets/work-from-home.svg";
 
-const tempObj = [
-  {
-    id: 1001,
-    name: "Tom",
-    designation: " Serial chaser",
-    mailID: "tom@catchmouse.com",
-  },
-  {
-    id: 1002,
-    name: "Jerry",
-    designation: " Domestic menace",
-    mailID: "jerry@catchme.com",
-  },
-  {
-    id: 1003,
-    name: "Spikes",
-    designation: " Guard dog",
-    mailID: "spikes@localguardian.com",
-  },
-  {
-    id: 1004,
-    name: "Bugs",
-    designation: " Bunny",
-    mailID: "bugsbunny@speed.com",
-  },
-  {
-    id: 1005,
-    name: "Courage",
-    designation: "Cowardly dog",
-    mailID: "courage@horror.com",
-  },
-];
+export interface iEmployee {
+  id: number;
+  firstName: string;
+  designation: string;
+  email: string;
+  dateOfJoining: string;
+  dob: string;
+  skills: Array<object>;
+}
 
 function Table() {
+  const navigate = useNavigate();
+  const { table, getEmpData, sortOrder, pageOffset, setEmployeeCount } =
+    useMyContext();
+  const [loadState, setLoadState] = useState(true);
+  useEffect(getTable, [sortOrder, pageOffset]);
+
+  const query = `employee?limit=${PaginationLimit}&offset=${pageOffset}&sortBy=id&sortDir=${sortOrder}`;
+
+  function getTable() {
+    getData(query)
+      .then((response) => {
+        getEmpData(response.data.data.employees);
+        setEmployeeCount(response.data.data.count);
+
+        setLoadState(false);
+      })
+      .catch((err) => {
+        console.log("error in getting table:", err);
+      });
+  }
+
+  function navigateToPage(
+    e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
+    id: number
+  ) {
+    const target = e.target as HTMLElement;
+
+    const fetchId = id;
+
+    if (target.tagName.toLocaleLowerCase() === "td") {
+      navigate(`/details/${fetchId}`);
+    } else if (target.tagName.toLocaleLowerCase() === "img") {
+      navigate(`/edit/${fetchId}`);
+    }
+  }
+
   return (
     <>
+      <SpinnerLoader load={loadState} />
       <TableStyled>
-        <TableRowStyled>
-          <TableHeaderStyled>ID</TableHeaderStyled>
-          <TableHeaderStyled>Name</TableHeaderStyled>
-          <TableHeaderStyled>Designation</TableHeaderStyled>
-          <TableHeaderStyled>Mail ID</TableHeaderStyled>
-          <TableHeaderStyled>Work status</TableHeaderStyled>
-          <TableHeaderStyled>Edit</TableHeaderStyled>
-        </TableRowStyled>
-
-        {tempObj.map((item) => (
+        <thead>
           <TableRowStyled>
-            <TableDataStyled>{item.id}</TableDataStyled>
-            <TableDataStyled>{item.name}</TableDataStyled>
-            <TableDataStyled>{item.designation}</TableDataStyled>
-            <TableDataStyled>{item.mailID}</TableDataStyled>
-            <TableDataStyled>
-              <img src="src/assets/work-from-home.svg" alt="" />
-            </TableDataStyled>
-            <TableDataStyled>
-              <img src="src/assets/edit button violet.svg" alt="" />
-            </TableDataStyled>
+            <TableHeaderStyled>{tableContent.IDheading}</TableHeaderStyled>
+            <TableHeaderStyled>{tableContent.NameHeading}</TableHeaderStyled>
+            <TableHeaderStyled>
+              {tableContent.DesignationHeading}
+            </TableHeaderStyled>
+            <TableHeaderStyled>{tableContent.MailIDHeading}</TableHeaderStyled>
+            <TableHeaderStyled>
+              {tableContent.WorkStatusHeading}
+            </TableHeaderStyled>
+            <TableHeaderStyled>{tableContent.EditHeading}</TableHeaderStyled>
           </TableRowStyled>
-        ))}
+        </thead>
+
+        <tbody>
+          {table?.map((item) => (
+            <TableRowStyled
+              key={item.id}
+              onClick={(e) => navigateToPage(e, item.id)}
+            >
+              <TableDataStyled>{item.id}</TableDataStyled>
+              <TableDataStyled>{item.firstName}</TableDataStyled>
+              <TableDataStyled>{item.designation}</TableDataStyled>
+              <TableDataStyled>{item.email}</TableDataStyled>
+              <TableDataStyled>
+                <img src={wfhIcon} alt="" />
+              </TableDataStyled>
+              <TableDataStyled>
+                <img src={editIcon} alt="" />
+              </TableDataStyled>
+            </TableRowStyled>
+          ))}
+        </tbody>
       </TableStyled>
     </>
   );

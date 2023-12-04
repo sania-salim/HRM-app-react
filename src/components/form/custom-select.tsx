@@ -1,29 +1,131 @@
+import { useState } from "react";
 import {
   LabelForm,
   DropDownUl,
   DropDownLi,
+  InputHalfStyled,
   CustomSelectContainer,
 } from "./form.style.ts";
 
 const SelectOptions = [
-  { label: "First", value: 1 },
-  { label: "Second", value: 2 },
-  { label: "Third", value: 3 },
-  { label: "Fourth", value: 4 },
-  { label: "Fifth", value: 5 },
+  { label: "HTML", value: 0 },
+  { label: "CSS", value: 1 },
+  { label: "React", value: 2 },
+  { label: "Node", value: 3 },
+  { label: "Angular", value: 4 },
 ];
 
-function CustomSelect() {
+let listArray: Array<string>;
+
+// array that stores the selected skills
+export const selectedSkills: string[] = [];
+
+export function CustomSelect() {
+  const [selectIsOpen, setSelectIsOpen] = useState(false);
+
+  function toggleDropdown() {
+    setSelectIsOpen(!selectIsOpen);
+  }
+
+  function addSkill(skill: string) {
+    selectedSkills.push(skill);
+  }
+
   return (
     <CustomSelectContainer>
-      <LabelForm>Check off all applicable:</LabelForm>
-      <DropDownUl>
-        {SelectOptions.map((option) => (
-          <DropDownLi key={option.value}>{option.label}</DropDownLi>
-        ))}
-      </DropDownUl>
+      <LabelForm>Check off all applicable skills:</LabelForm>
+      <InputHalfStyled onClick={toggleDropdown}></InputHalfStyled>
+      {selectIsOpen && (
+        <DropDownUl>
+          {SelectOptions.map((option) => (
+            <DropDownLi
+              className={
+                selectedSkills.includes(option.label) ? "isSelected" : ""
+              }
+              tabIndex={option.value}
+              key={option.label}
+              onClick={() => addSkill(option.label)}
+            >
+              {option.label}
+            </DropDownLi>
+          ))}
+        </DropDownUl>
+      )}
     </CustomSelectContainer>
   );
 }
 
-export default CustomSelect;
+export let selectedOption: string;
+
+interface SelectProps {
+  selectList: string;
+}
+
+export let workOptionSelected: string;
+export let locationOptionSelected: string;
+export let designationSelected: string;
+
+export const CustomSimpleSelect: React.FC<SelectProps> = ({
+  selectList,
+}: SelectProps) => {
+  const [selectIsOpen, setSelectIsOpen] = useState(false);
+
+  function toggleDropdown() {
+    setSelectIsOpen(!selectIsOpen);
+  }
+
+  function selectOption(option: string, selectList: string) {
+    if (selectList === "workOptions") {
+      workOptionSelected = option;
+    } else if (selectList === "workLocation") {
+      locationOptionSelected = option;
+    } else if (selectList === "designation") {
+      designationSelected = option;
+    }
+  }
+
+  let listName: string = "workOptions";
+
+  if (selectList === "workOptions") {
+    listArray = ["Work from home", "Office"];
+    listName = "work mode:";
+  } else if (selectList === "workLocation") {
+    listArray = [
+      "Ganga TP-3",
+      "Lulu Cyber Tower",
+      "Artech Magnet Vazhuthacaud",
+      "UL Cyber Park Calicut",
+      "Nisagandhi, Infopark Koratty",
+    ];
+    listName = "work location:";
+  } else if (selectList === "designation") {
+    listArray = [
+      "Engineer",
+      "Senior Engineer",
+      "Lead Engineer",
+      "Architect",
+      "Principal Engineer",
+    ];
+    listName = "designation:";
+  } else console.log("IM doomed");
+
+  return (
+    <CustomSelectContainer>
+      <LabelForm>Select {listName}</LabelForm>
+      <InputHalfStyled onClick={toggleDropdown}></InputHalfStyled>
+      {selectIsOpen && (
+        <DropDownUl>
+          {listArray.map((option) => (
+            <DropDownLi
+              onClick={() => {
+                selectOption(option, selectList);
+              }}
+            >
+              {option}
+            </DropDownLi>
+          ))}
+        </DropDownUl>
+      )}
+    </CustomSelectContainer>
+  );
+};
