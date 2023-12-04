@@ -20,7 +20,6 @@ export interface moreDetails {
 function Details() {
   const navigate = useNavigate();
   const [emp, setEmp] = useState<empData>();
-  // const [moreDetails, setMoreDetails] = useState<moreDetails>();
   const [photo, setPhoto] = useState<string | undefined>();
 
   useEffect(() => {
@@ -96,7 +95,6 @@ function Details() {
           </div>
           <div>
             <img src={phoneIcon} alt="" />
-            {/* <p>{emp ? emp.phone : null}7895789468</p> */}
             <p>7895789468</p>
           </div>
 

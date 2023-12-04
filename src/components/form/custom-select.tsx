@@ -74,10 +74,6 @@ export const CustomSimpleSelect: React.FC<SelectProps> = ({
     setSelectIsOpen(!selectIsOpen);
   }
 
-  // function selectItem() {
-  //   setItemSelection(true);
-  // }
-
   function selectOption(option: string, selectList: string) {
     if (selectList === "workOptions") {
       workOptionSelected = option;

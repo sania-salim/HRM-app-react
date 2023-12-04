@@ -15,8 +15,8 @@ export const Loader = styled.div<{ load: boolean }>`
   top: 45%;
   left: 48.3%;
   transform: translate(-50%, -50%);
-  border: 4px solid #f3f3f3; /* Light gray border */
-  border-top: 4px solid var(--themeGreen); /* Blue border for the top edge */
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--themeGreen);
   border-radius: 50%; /* Make it a circle */
   width: 40px;
   height: 40px;

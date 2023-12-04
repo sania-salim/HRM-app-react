@@ -8,7 +8,6 @@ import {
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Select } from "../form/dropdown.tsx";
-// import { SkillOptions } from "../form/form.tsx";
 import { useMyContext, empData } from "../../context/mycontext.tsx";
 import { selectOptions } from "../form/dropdown.tsx";
 import { getData } from "../../core/api/api.ts";
@@ -53,7 +52,6 @@ function Tools() {
         .then((response) => {
           getEmpData(response.data.data.employees);
           console.log("emp table fetched", table);
-          // setLoadState(false);
         })
         .catch((err) => {
           console.log("error in getting table:", err);
@@ -88,8 +86,6 @@ function Tools() {
       getData(query)
         .then((response) => {
           getEmpData(response.data.data.employees);
-
-          // setLoadState(false);
         })
         .catch((err) => {
           console.log("error in getting table:", err);

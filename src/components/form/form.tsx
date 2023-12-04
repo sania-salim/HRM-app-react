@@ -130,8 +130,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           skills: temp?.skills,
         });
 
-        // setValueSingleDesignation(temp?.designation);
-
         setValueMultipleSkill(
           temp?.skills.map((skill: { id: number; skill: string }) => ({
             label: skill.skill,
@@ -245,8 +243,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
       };
 
       if (formtype === addForm) {
-        // employeeList.push(newEntry);
-
         postData(addEmployeeQuery, newEntry)
           .then(() => {
             updateData({ name: newEntry.firstName, message: "has been added" });
@@ -301,7 +297,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
         </label>
 
         <InnerFormContainer>
-          {/* <h3>{formContent.formHeading}</h3> */}
           <FormFieldDivider>
             <LabelForm>{formContent.fullNameLabel}</LabelForm>
             <InputFullStyled

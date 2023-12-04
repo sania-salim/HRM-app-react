@@ -4,20 +4,15 @@ import {
   TableHeaderStyled,
   TableDataStyled,
 } from "./table.style";
-// import { employeeList } from "../../core/config/constants";
 import { useNavigate } from "react-router-dom";
 import { tableContent } from "../../core/config/content";
 import { getData } from "../../core/api/api";
 import { useEffect, useState } from "react";
 import { useMyContext } from "../../context/mycontext";
 import SpinnerLoader from "../loader/loader";
-// import { getTableQueryAsc } from "../../core/config/constants";
 import { PaginationLimit } from "../../core/config/constants";
-// import { empData } from "../../context/mycontext";
 import editIcon from "../../assets/edit button violet.svg";
 import wfhIcon from "../../assets/work-from-home.svg";
-
-// const tempObj = employeeList;
 
 export interface iEmployee {
   id: number;
@@ -27,8 +22,6 @@ export interface iEmployee {
   dateOfJoining: string;
   dob: string;
   skills: Array<object>;
-  // workstatus
-  // location
 }
 
 function Table() {
@@ -36,8 +29,6 @@ function Table() {
   const { table, getEmpData, sortOrder, pageOffset, setEmployeeCount } =
     useMyContext();
   const [loadState, setLoadState] = useState(true);
-
-  // const [table, setTable] = useState([]);
   useEffect(getTable, [sortOrder, pageOffset]);
 
   const query = `employee?limit=${PaginationLimit}&offset=${pageOffset}&sortBy=id&sortDir=${sortOrder}`;
