@@ -32,3 +32,14 @@ export const SearchInput = styled.input`
   width: 250px;
   background-color: var(--themeGrey);
 `;
+
+export const ToolBtn = styled.button`
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #d9d9d900;
+  border: 0;
+  &:hover {
+    background-color: var(--themeGrey);
+  }
+`;

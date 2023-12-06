@@ -385,7 +385,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
             </FormFieldDivider>
 
             <FormFieldDivider>
-              {/* <CustomSimpleSelect selectList="designation"></CustomSimpleSelect> */}
               <LabelForm>{formContent.designationLabel}</LabelForm>
               <Select
                 options={DesignationOptions}
@@ -396,7 +395,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           </FormDivider>
           <FormDivider>
             <FormFieldDivider>
-              {/* <CustomSimpleSelect selectList="workOptions"></CustomSimpleSelect> */}
               <LabelForm>{formContent.modeOfWorkLabel}</LabelForm>
               <Select
                 options={WorkOptions}
@@ -406,7 +404,6 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
             </FormFieldDivider>
 
             <FormFieldDivider>
-              {/* <CustomSimpleSelect selectList="workLocation"></CustomSimpleSelect> */}
               <LabelForm>{formContent.selectLocationLabel}</LabelForm>
               <Select
                 options={LocationOptions}
@@ -422,6 +419,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           buttontype="regularButton"
           buttontext="Cancel"
           onSmash={() => navigate(-1)}
+          type="button"
         />
 
         {formtype === editForm ? (
@@ -430,6 +428,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
             buttontext="Delete"
             buttonicon=""
             onSmash={() => deleteEmployee()}
+            type="button"
           />
         ) : (
           ""

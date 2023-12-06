@@ -4,6 +4,7 @@ import {
   OuterToolsContainer,
   SearchContainer,
   SearchInput,
+  ToolBtn,
 } from "./tools.styles.ts";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -123,14 +124,19 @@ function Tools() {
           />
           <img src={searchIcon} alt="" />
         </SearchContainer>
-        <img src={sortIcon} alt="" onClick={changeSort} />
+        <ToolBtn>
+          <img src={sortIcon} alt="" onClick={changeSort} title="Sort by ID" />
+        </ToolBtn>
         <>
-          <img
-            src={filterIcon}
-            alt=""
-            className="filtericon"
-            onClick={() => setIsSelectOpen(!isSelectOpen)}
-          />
+          <ToolBtn>
+            <img
+              src={filterIcon}
+              alt=""
+              className="filtericon"
+              onClick={() => setIsSelectOpen(!isSelectOpen)}
+              title="Filter by skill"
+            />
+          </ToolBtn>
           <Select
             multiple
             options={SkillOptions}
