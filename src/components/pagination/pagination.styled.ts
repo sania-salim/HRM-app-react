@@ -12,7 +12,7 @@ export const PageButton = styled.button`
   height: 30px;
   width: 30px;
   border-radius: 50%;
-  border: 2px solid var(--themeGrey);
+  border: 2px;
   &:hover {
     color: white;
     border: 2px solid var(--primaryDark);
