@@ -12,7 +12,7 @@ function Home() {
   return (
     <>
       <Header />
-      {data.name.length === 0 ? null : <Popup name="" message="" />}
+      {data.name.length === 0 ? <></> : <Popup name="" message="" />}
       <Tools />
       <Table></Table>
       <Pagination></Pagination>

@@ -34,7 +34,9 @@ interface contextType {
 const MyContext = createContext<contextType | undefined>(undefined);
 
 // context provider
-export const MyProvider: FC<{ children: ReactNode }> = ({ children }) => {
+export const MyContextProvider: FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   // state and modifier for popup
   const [data, setData] = useState<propData>({ name: "", message: "" });
   const updateData = (newData: Partial<propData>) => {

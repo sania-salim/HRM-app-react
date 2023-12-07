@@ -18,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({
 }: ButtonProps) => {
   return (
     <ButtonStyled buttontype={buttontype} type={type} onClick={onSmash}>
-      {buttonicon ? <img src={buttonicon} alt="" /> : ""}
+      {buttonicon && <img src={buttonicon} alt="" />}
       {buttontext}
     </ButtonStyled>
   );
