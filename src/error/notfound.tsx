@@ -3,27 +3,15 @@ import React from "react";
 import Button from "../components/buttons/button";
 import { ButtonContainer } from "../components/form/form.style";
 import { ErrorContainer } from "./error.style";
-import { useNavigate, useRouteError } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const ErrorPage: React.FC = () => {
-  const error: any = useRouteError();
+const PageNotFound: React.FC = () => {
   const navigate = useNavigate();
 
   return (
     <ErrorContainer>
       <div>
-        <h1>
-          Oops! Something went
-          <i>
-            <small>ever so slightly </small>
-          </i>
-          wrong.
-        </h1>
-        <p>{error.message}</p>
-        <p>
-          Maybe it's a sign to stop looking at tables.
-          <br /> Take a break or try again later.
-        </p>
+        <h1>Oops! The page you requested was not found.</h1>
         <ButtonContainer>
           <Button
             buttontext="Back"
@@ -41,4 +29,4 @@ const ErrorPage: React.FC = () => {
   );
 };
 
-export default ErrorPage;
+export default PageNotFound;

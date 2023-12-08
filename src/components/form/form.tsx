@@ -149,7 +149,8 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
         setValueSingleWork(work);
       })
       .catch((err) => {
-        console.log("error in getting table:", err);
+        console.log("error in getting employee:", err);
+        throw Error("Encountered an error in getting employee");
       });
   }
 
@@ -250,6 +251,7 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
           })
           .catch((err) => {
             console.log("error in posting new employee", err);
+            throw Error("Encountered an error in posting new employee");
           });
       } else if (formtype === editForm) {
         editData(`/employee/${fetchID}`, newEntry)
@@ -261,7 +263,10 @@ const Form: React.FC<FormProps> = ({ formtype }: FormProps) => {
             });
             navigate("/");
           })
-          .catch((err) => console.log(err, "udpate"));
+          .catch((err) => {
+            console.log(err, "udpate");
+            throw Error("Encountered an error while updating details.");
+          });
       }
     },
 

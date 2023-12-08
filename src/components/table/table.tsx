@@ -31,7 +31,7 @@ function Table() {
   const [loadState, setLoadState] = useState(true);
   useEffect(getTable, [sortOrder, pageOffset]);
 
-  const query = `employee?limit=${PaginationLimit}&offset=${pageOffset}&sortBy=id&sortDir=${sortOrder}`;
+  const query = `employ?limit=${PaginationLimit}&offset=${pageOffset}&sortBy=id&sortDir=${sortOrder}`;
 
   function getTable() {
     getData(query)
@@ -43,6 +43,8 @@ function Table() {
       })
       .catch((err) => {
         console.log("error in getting table:", err);
+        setLoadState(false);
+        throw Error("Encountered an error in getting table");
       });
   }
 

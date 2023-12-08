@@ -86,6 +86,7 @@ function Tools() {
       getData(query)
         .then((response) => {
           getEmpData(response.data.data.employees);
+          console.log("im running hdjyydjdtjy");
         })
         .catch((err) => {
           console.log("error in getting table:", err);

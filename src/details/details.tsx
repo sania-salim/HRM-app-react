@@ -47,12 +47,13 @@ function Details() {
   function getEmployee() {
     console.log("getting emp");
 
-    getData(`/employee/${empID}`)
+    getData(`/emplo/${empID}`)
       .then((response) => {
         setEmp(response.data.data);
       })
       .catch((err) => {
-        console.log("error in getting table:", err);
+        console.log("error in getting details:", err);
+        throw Error("error in getting details");
       });
   }
 
