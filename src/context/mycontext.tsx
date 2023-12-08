@@ -10,6 +10,7 @@ export interface empData {
   id: number;
   firstName: string;
   dateOfJoining: string;
+  phone: string;
   dob: string;
   email: string;
   designation: string;

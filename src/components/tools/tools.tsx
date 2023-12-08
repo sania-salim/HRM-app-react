@@ -51,10 +51,9 @@ function Tools() {
       getData(query)
         .then((response) => {
           getEmpData(response.data.data.employees);
-          console.log("emp table fetched", table);
         })
-        .catch((err) => {
-          console.log("error in getting table:", err);
+        .catch(() => {
+          throw Error("Error encountered in fetching table");
         });
     }
   }, [valueMultipleSkill]);

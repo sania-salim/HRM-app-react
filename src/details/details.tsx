@@ -96,7 +96,7 @@ function Details() {
           </div>
           <div>
             <img src={phoneIcon} alt="" />
-            <p>7895789468</p>
+            <p>{emp ? emp.phone : null}</p>
           </div>
 
           <p>
